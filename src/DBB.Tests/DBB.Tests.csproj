@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\dcb\dcb.csproj" />
+    <ProjectReference Include="..\dcb\DCB.csproj" />
   </ItemGroup>
 
 </Project>

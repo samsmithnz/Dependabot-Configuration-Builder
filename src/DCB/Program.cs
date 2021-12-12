@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace dcb // Note: actual namespace depends on the project name.
+namespace DCB
 {
     public class Program
     {
