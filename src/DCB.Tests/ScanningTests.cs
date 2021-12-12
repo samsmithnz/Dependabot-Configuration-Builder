@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace DCB.Tests
 {
@@ -10,14 +12,15 @@ namespace DCB.Tests
         public void ScanTest()
         {
             //arrange
-            string startingDirectory = @"C:\Users\samsm\source\repos\Dependabot-Configuration-Builder";
+            string workingDirectory = Environment.CurrentDirectory;
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.Parent.FullName;
             string fileToSearch = "*.csproj";
 
             //act
-            List<string> files = FileSearch.GetFilesForDirectory(startingDirectory, fileToSearch);
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
 
             YAMLParser yamlParser = new();
-            string yaml = yamlParser.CreateDependabotConfiguration(startingDirectory, files);
+            string yaml = yamlParser.CreateDependabotConfiguration(projectDirectory, files);
 
             //assert
             string expected = @"version: 2
