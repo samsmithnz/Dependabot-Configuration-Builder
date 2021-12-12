@@ -9,7 +9,6 @@
             List<string> files = FileSearch.GetFilesForDirectory(startingDirectory, fileToSearch);
             Console.WriteLine(files.Count + " files found");
 
-            YAMLParser yamlParser = new();
             string yaml = YAMLParser.CreateDependabotConfiguration(startingDirectory, files);
             Console.WriteLine(yaml);
         }
