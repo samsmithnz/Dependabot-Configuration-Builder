@@ -16,6 +16,8 @@ namespace DCB
                 Package package = new();
                 package.package_ecosystem = "nuget";
                 package.directory = file.Replace(startingDirectory + "\\", "");
+                package.schedule = new();
+                package.schedule.time = "daily";
                 packages.Add(package);
             }
             root.updates = packages;

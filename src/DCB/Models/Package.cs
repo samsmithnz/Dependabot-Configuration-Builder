@@ -4,6 +4,6 @@
     {
         public string package_ecosystem { get; set; }
         public string directory { get; set; }
-        public string schedule { get; set; }
+        public Schedule schedule { get; set; }
     }
 }

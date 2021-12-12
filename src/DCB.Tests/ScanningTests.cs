@@ -25,9 +25,11 @@ updates:
 - packageEcosystem: nuget
   directory: src\DCB\DCB.csproj
   schedule: 
+    interval: daily
 - packageEcosystem: nuget
   directory: src\DCB.Tests\DCB.Tests.csproj
-  schedule: 
+  schedule:
+    interval: daily
 ";
             Assert.AreEqual(expected, yaml);
         }
