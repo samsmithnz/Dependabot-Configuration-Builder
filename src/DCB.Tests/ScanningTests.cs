@@ -14,10 +14,10 @@ namespace DCB.Tests
         {
             //arrange
             string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.Parent.FullName;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                projectDirectory = projectDirectory.Replace("\\", "/");
+                projectDirectory = projectDirectory?.Replace("\\", "/");
             }
             string fileToSearch = "*.csproj";
 
@@ -52,7 +52,7 @@ updates:
         {
             //arrange
             string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.Parent.FullName;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
             projectDirectory += "\\Samples\\Pom";
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {

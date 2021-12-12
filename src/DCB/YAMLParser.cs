@@ -6,8 +6,13 @@ namespace DCB
 {
     public class YAMLParser
     {
-        public static string CreateDependabotConfiguration(string startingDirectory, List<string> files)
+        public static string CreateDependabotConfiguration(string? startingDirectory, List<string> files)
         {
+            if (startingDirectory == null)
+            {
+                return "";
+            }
+
             Root root = new();
 
             List<Package> packages = new();
