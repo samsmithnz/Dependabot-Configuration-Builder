@@ -15,7 +15,9 @@ namespace DCB
             {
                 Package package = new();
                 package.package_ecosystem = "nuget";
-                package.directory = file.Replace(startingDirectory + "\\", "");
+                string cleanedFile = file.Replace(startingDirectory + "/", "");
+                cleanedFile = cleanedFile.Replace(startingDirectory + "\\", "");
+                package.directory = cleanedFile;
                 package.schedule = new();
                 package.schedule.interval = "daily";
                 packages.Add(package);
