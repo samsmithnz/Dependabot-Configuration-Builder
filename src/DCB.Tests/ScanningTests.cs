@@ -19,7 +19,6 @@ namespace DCB.Tests
             {
                 projectDirectory = projectDirectory?.Replace("\\", "/");
             }
-            string fileToSearch = "*.csproj";
 
             //act
             List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
