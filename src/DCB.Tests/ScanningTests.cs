@@ -17,7 +17,7 @@ namespace DCB.Tests
             List<string> files = FileSearch.GetFilesForDirectory(startingDirectory, fileToSearch);
 
             YAMLParser yamlParser = new();
-            string yaml = yamlParser.CreateDependabotConfiguration(files);
+            string yaml = yamlParser.CreateDependabotConfiguration(startingDirectory, files);
 
             //assert
             string expected = @"version: 2

@@ -6,7 +6,7 @@ namespace DCB
 {
     public class YAMLParser
     {
-        public string CreateDependabotConfiguration(List<string> files)
+        public string CreateDependabotConfiguration(string startingDirectory, List<string> files)
         {
             Root root = new();
 
@@ -15,7 +15,8 @@ namespace DCB
             {
                 Package package = new();
                 package.package_ecosystem = "nuget";
-                package.directory = file;
+                package.directory = file.Replace(startingDirectory + "\\", "");
+                packages.Add(package);
             }
             root.updates = packages;
 
