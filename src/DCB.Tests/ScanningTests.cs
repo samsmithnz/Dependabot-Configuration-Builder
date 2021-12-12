@@ -34,6 +34,11 @@ updates:
   schedule:
     interval: daily
 ";
+
+//If it's a Linux runner, reverse the brackets
+#if (LINUX)
+    expected = expected.Replace("\\","/");
+#endif
             Assert.AreEqual(expected, yaml);
         }
     }
