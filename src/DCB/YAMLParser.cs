@@ -10,6 +10,15 @@ namespace DCB
         {
             Root root = new();
 
+            List<Package> packages = new();
+            foreach (string file in files)
+            {
+                Package package = new();
+                package.package_ecosystem = "nuget";
+                package.directory = file;
+            }
+            root.updates = packages;
+
             //        var root = new Root
             //        {
             //            Name = "Abe Lincoln",
