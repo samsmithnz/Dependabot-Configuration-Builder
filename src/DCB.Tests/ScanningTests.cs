@@ -62,12 +62,8 @@ updates:
             //assert
             string expected = @"version: 2
 updates:
-- packageEcosystem: nuget
-  directory: src\DCB.Tests\DCB.Tests.csproj
-  schedule:
-    interval: daily
-- packageEcosystem: nuget
-  directory: src\DCB\DCB.csproj
+- packageEcosystem: maven
+  directory: pom.xml
   schedule:
     interval: daily
 ";
