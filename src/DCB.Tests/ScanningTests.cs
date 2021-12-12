@@ -9,7 +9,7 @@ namespace DCB.Tests
     public class ScanningTests
     {
         [TestMethod]
-        public void ScanTest()
+        public void ScanThisProjectTest()
         {
             //arrange
             string workingDirectory = Environment.CurrentDirectory;
