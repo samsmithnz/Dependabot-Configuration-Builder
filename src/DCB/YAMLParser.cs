@@ -40,9 +40,12 @@ namespace DCB
             //Serialize the object into YAML
             ISerializer? serializer = new SerializerBuilder()
                 .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitDefaults) //New as of YamlDotNet 8.0.0:
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                                                                    //.WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             string? yaml = serializer.Serialize(root);
+
+            //I can't use - in variable names, so replace _ with -
+            yaml = yaml.Replace("package_ecosystem", "package-ecosystem");
 
             return yaml;
 
