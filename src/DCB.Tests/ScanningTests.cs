@@ -30,7 +30,7 @@ namespace DCB.Tests
             string expected = @"version: 2
 updates:
 - package-ecosystem: nuget
-  directory: Samples\Dotnet\Dotnet.csproj
+  directory: samples\dotnet\Dotnet.csproj
   schedule:
     interval: daily
 - package-ecosystem: nuget
@@ -57,7 +57,7 @@ updates:
             //arrange
             string workingDirectory = Environment.CurrentDirectory;
             string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            projectDirectory += "\\Samples\\Pom";
+            projectDirectory += "\\samples\\java";
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 projectDirectory = projectDirectory.Replace("\\", "/");
@@ -92,7 +92,7 @@ updates:
             //arrange
             string workingDirectory = Environment.CurrentDirectory;
             string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            projectDirectory += "\\Samples\\Dotnet";
+            projectDirectory += "\\samples\\dotnet";
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 projectDirectory = projectDirectory.Replace("\\", "/");
