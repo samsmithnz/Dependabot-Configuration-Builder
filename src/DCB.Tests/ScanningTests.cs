@@ -29,19 +29,19 @@ namespace DCB.Tests
             string expected = @"version: 2
 updates:
 - package-ecosystem: nuget
-  directory: samples\dotnet\Dotnet.csproj
+  directory: /samples/dotnet
   schedule:
     interval: daily
 - package-ecosystem: maven
-  directory: samples\java\pom.xml
+  directory: /samples/java
   schedule:
     interval: daily
 - package-ecosystem: nuget
-  directory: src\DCB.Tests\DCB.Tests.csproj
+  directory: /src/DCB.Tests
   schedule:
     interval: daily
 - package-ecosystem: nuget
-  directory: src\DCB\DCB.csproj
+  directory: /src/DCB
   schedule:
     interval: daily
 ";
@@ -75,7 +75,7 @@ updates:
             string expected = @"version: 2
 updates:
 - package-ecosystem: maven
-  directory: pom.xml
+  directory: /
   schedule:
     interval: daily
 ";
@@ -109,7 +109,7 @@ updates:
             string expected = @"version: 2
 updates:
 - package-ecosystem: nuget
-  directory: Dotnet.csproj
+  directory: /
   schedule:
     interval: daily
 ";
