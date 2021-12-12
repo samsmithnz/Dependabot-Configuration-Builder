@@ -5,7 +5,7 @@ updates:
   schedule:
     interval: daily
 - package-ecosystem: maven
-  directory: \pom.xml
+  directory: \samples\java\pom.xml
   schedule:
     interval: daily
 - package-ecosystem: nuget
