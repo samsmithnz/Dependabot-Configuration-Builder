@@ -17,7 +17,7 @@ namespace DCB
                 package.package_ecosystem = "nuget";
                 package.directory = file.Replace(startingDirectory + "\\", "");
                 package.schedule = new();
-                package.schedule.time = "daily";
+                package.schedule.interval = "daily";
                 packages.Add(package);
             }
             root.updates = packages;
@@ -44,6 +44,7 @@ namespace DCB
             //        };
 
             ISerializer? serializer = new SerializerBuilder()
+                .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitDefaults) //New as of YamlDotNet 8.0.0:
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             string? yaml = serializer.Serialize(root);

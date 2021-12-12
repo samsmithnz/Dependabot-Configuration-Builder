@@ -24,7 +24,7 @@ namespace DCB.Tests
 updates:
 - packageEcosystem: nuget
   directory: src\DCB\DCB.csproj
-  schedule: 
+  schedule:
     interval: daily
 - packageEcosystem: nuget
   directory: src\DCB.Tests\DCB.Tests.csproj
