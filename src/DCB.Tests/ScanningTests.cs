@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace DCB.Tests
 {
@@ -35,10 +36,11 @@ updates:
     interval: daily
 ";
 
-//If it's a Linux runner, reverse the brackets
-#if (LINUX)
-    expected = expected.Replace("\\","/");
-#endif
+            //If it's a Linux runner, reverse the brackets
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                expected = expected.Replace("\\", "/");
+            }
             Assert.AreEqual(expected, yaml);
         }
     }
