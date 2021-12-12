@@ -18,18 +18,19 @@ Given this projects root directory + samples, produces the output:
 version: 2
 updates:
 - package-ecosystem: nuget
-  directory: samples\dotnet\Dotnet.csproj
+  directory: /samples/dotnet
   schedule:
     interval: daily
 - package-ecosystem: maven
-  directory: pom.xml
+  directory: /samples/java
   schedule:
     interval: daily
 - package-ecosystem: nuget
-  directory: src\DCB.Tests\DCB.Tests.csproj
+  directory: /src/DCB.Tests
   schedule:
     interval: daily
 - package-ecosystem: nuget
-  directory: src\DCB\DCB.csproj
+  directory: /src/DCB
   schedule:
     interval: daily
+```
