@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\GitVersion.yml = ..\GitVersion.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBB.Tests", "DCB.Tests\DBB.Tests.csproj", "{FD16DD83-B602-4CE4-908D-E318CA701C08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCB.Tests", "DCB.Tests\DCB.Tests.csproj", "{38004B0B-EE26-4871-8A76-30653C8E356B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +24,10 @@ Global
 		{2F519039-F22B-4926-B06E-4999455DA583}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F519039-F22B-4926-B06E-4999455DA583}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F519039-F22B-4926-B06E-4999455DA583}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD16DD83-B602-4CE4-908D-E318CA701C08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD16DD83-B602-4CE4-908D-E318CA701C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD16DD83-B602-4CE4-908D-E318CA701C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD16DD83-B602-4CE4-908D-E318CA701C08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38004B0B-EE26-4871-8A76-30653C8E356B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38004B0B-EE26-4871-8A76-30653C8E356B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38004B0B-EE26-4871-8A76-30653C8E356B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38004B0B-EE26-4871-8A76-30653C8E356B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
