@@ -24,8 +24,7 @@ namespace DCB.Tests
             //act
             List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
 
-            YAMLParser yamlParser = new();
-            string yaml = yamlParser.CreateDependabotConfiguration(projectDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
             //assert
             string expected = @"version: 2
@@ -64,8 +63,7 @@ updates:
             //act
             List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
 
-            YAMLParser yamlParser = new();
-            string yaml = yamlParser.CreateDependabotConfiguration(projectDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
             //assert
             string expected = @"version: 2

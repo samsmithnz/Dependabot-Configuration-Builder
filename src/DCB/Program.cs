@@ -10,7 +10,7 @@
             Console.WriteLine(files.Count + " files found");
 
             YAMLParser yamlParser = new();
-            string yaml = yamlParser.CreateDependabotConfiguration(startingDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(startingDirectory, files);
             Console.WriteLine(yaml);
         }
     }
