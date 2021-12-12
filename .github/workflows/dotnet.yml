@@ -25,9 +25,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Build
-      run: dotnet build src/DCB.sln
+      run: dotnet build src/DCB/DCB.csproj
     - name: Test
-      run: dotnet test src/DCB.sln
+      run: dotnet test src/DCB.Tests/DCB.Tests.csproj
 
     #Install and calculate the new version with GitVersion  
     - name: Install GitVersion
