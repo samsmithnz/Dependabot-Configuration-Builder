@@ -27,11 +27,11 @@ namespace DCB.Tests
             string expected = @"version: 2
 updates:
 - packageEcosystem: nuget
-  directory: src\DCB\DCB.csproj
+  directory: src\DCB.Tests\DCB.Tests.csproj
   schedule:
     interval: daily
 - packageEcosystem: nuget
-  directory: src\DCB.Tests\DCB.Tests.csproj
+  directory: src\DCB\DCB.csproj
   schedule:
     interval: daily
 ";
