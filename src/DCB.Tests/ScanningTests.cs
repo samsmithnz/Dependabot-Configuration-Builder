@@ -30,6 +30,10 @@ namespace DCB.Tests
             string expected = @"version: 2
 updates:
 - packageEcosystem: nuget
+  directory: Samples\Dotnet\Dotnet.csproj
+  schedule:
+    interval: daily
+- packageEcosystem: nuget
   directory: src\DCB.Tests\DCB.Tests.csproj
   schedule:
     interval: daily
@@ -70,6 +74,41 @@ updates:
 updates:
 - packageEcosystem: maven
   directory: pom.xml
+  schedule:
+    interval: daily
+";
+
+            //If it's a Linux runner, reverse the brackets
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                expected = expected.Replace("\\", "/");
+            }
+            Assert.AreEqual(expected, yaml);
+        }
+
+        [TestMethod]
+        public void ScanDotnetSampleProjectTest()
+        {
+            //arrange
+            string workingDirectory = Environment.CurrentDirectory;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            projectDirectory += "\\Samples\\Dotnet";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projectDirectory = projectDirectory.Replace("\\", "/");
+            }
+            string fileToSearch = "*.csproj";
+
+            //act
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
+
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+
+            //assert
+            string expected = @"version: 2
+updates:
+- packageEcosystem: nuget
+  directory: Dotnet.csproj
   schedule:
     interval: daily
 ";
