@@ -30,3 +30,14 @@ updates:
   schedule:
     interval: daily
 ```
+
+And:
+
+```
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: pom.xml
+  schedule:
+    interval: daily
+```
