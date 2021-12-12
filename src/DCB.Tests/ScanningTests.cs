@@ -20,9 +20,8 @@ namespace DCB.Tests
             string yaml = yamlParser.CreateDependabotConfiguration(files);
 
             //assert
-            string expected = @"
-version: 2
-updates:
+            string expected = @"version: 2
+updates: 
 ";
             Assert.AreEqual(expected, yaml);
         }
