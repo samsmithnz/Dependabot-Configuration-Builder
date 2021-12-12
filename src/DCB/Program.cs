@@ -6,18 +6,12 @@
         {
             string startingDirectory = @"C:\Users\samsm\source\repos\Dependabot-Configuration-Builder";
             string fileToSearch = "*.csproj";
-            List<string> files = GetFilesForDirectory(startingDirectory, fileToSearch);
+            List<string> files = FileSearch.GetFilesForDirectory(startingDirectory, fileToSearch);
             Console.WriteLine(files.Count + " files found");
 
-            YAMLParser yamlParser = new YAMLParser();
+            YAMLParser yamlParser = new();
             string yaml = yamlParser.CreateDependabotConfiguration(files);
             Console.WriteLine(yaml);
-        }
-
-        public static List<string> GetFilesForDirectory(string startingDirectory, string fileToSearch)
-        {
-            string[] files = Directory.GetFiles(startingDirectory, fileToSearch, SearchOption.AllDirectories);
-            return files.ToList<string>();
         }
     }
 }

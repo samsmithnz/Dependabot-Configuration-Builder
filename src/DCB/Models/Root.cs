@@ -9,6 +9,6 @@
 
         public string version { get; set; }
 
-        public List<Package> package_ecosystem { get; set; }
+        public List<Package> updates { get; set; }
     }
 }
