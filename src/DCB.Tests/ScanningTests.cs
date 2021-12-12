@@ -19,10 +19,9 @@ namespace DCB.Tests
             {
                 projectDirectory = projectDirectory?.Replace("\\", "/");
             }
-            string fileToSearch = "*.csproj";
 
             //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
 
             string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
@@ -31,6 +30,10 @@ namespace DCB.Tests
 updates:
 - package-ecosystem: nuget
   directory: samples\dotnet\Dotnet.csproj
+  schedule:
+    interval: daily
+- package-ecosystem: maven
+  directory: samples\java\pom.xml
   schedule:
     interval: daily
 - package-ecosystem: nuget
@@ -62,10 +65,9 @@ updates:
             {
                 projectDirectory = projectDirectory.Replace("\\", "/");
             }
-            string fileToSearch = "pom.xml";
 
             //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
 
             string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
@@ -97,10 +99,9 @@ updates:
             {
                 projectDirectory = projectDirectory.Replace("\\", "/");
             }
-            string fileToSearch = "*.csproj";
 
             //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
 
             string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 

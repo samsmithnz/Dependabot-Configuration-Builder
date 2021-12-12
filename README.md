@@ -21,6 +21,10 @@ updates:
   directory: samples\dotnet\Dotnet.csproj
   schedule:
     interval: daily
+- package-ecosystem: maven
+  directory: pom.xml
+  schedule:
+    interval: daily
 - package-ecosystem: nuget
   directory: src\DCB.Tests\DCB.Tests.csproj
   schedule:
@@ -29,15 +33,3 @@ updates:
   directory: src\DCB\DCB.csproj
   schedule:
     interval: daily
-```
-
-And:
-
-```
-version: 2
-updates:
-- package-ecosystem: maven
-  directory: pom.xml
-  schedule:
-    interval: daily
-```
