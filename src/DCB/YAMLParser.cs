@@ -6,49 +6,46 @@ namespace DCB
 {
     public class YAMLParser
     {
-        public string CreateDependabotConfiguration(string startingDirectory, List<string> files)
+        public static string CreateDependabotConfiguration(string? startingDirectory, List<string> files)
         {
+            if (startingDirectory == null)
+            {
+                return "";
+            }
+
             Root root = new();
 
             List<Package> packages = new();
             foreach (string file in files)
             {
                 Package package = new();
-                package.package_ecosystem = "nuget";
-                package.directory = file.Replace(startingDirectory + "\\", "");
+                FileInfo fileInfo = new(file);
+                if (fileInfo.Name == "pom.xml")
+                {
+                    package.package_ecosystem = "maven";
+                }
+                else if (fileInfo.Extension == ".csproj")
+                {
+                    package.package_ecosystem = "nuget";
+                }
+                string cleanedFile = file.Replace(startingDirectory + "/", "");
+                cleanedFile = cleanedFile.Replace(startingDirectory + "\\", "");
+                package.directory = cleanedFile;
                 package.schedule = new();
                 package.schedule.interval = "daily";
                 packages.Add(package);
             }
             root.updates = packages;
 
-            //        var root = new Root
-            //        {
-            //            Name = "Abe Lincoln",
-            //            Age = 25,
-            //            HeightInInches = 6f + 4f / 12f,
-            //            Addresses = new Dictionary<string, Address>{
-            //    { "home", new  Address() {
-            //            Street = "2720  Sundown Lane",
-            //            City = "Kentucketsville",
-            //            State = "Calousiyorkida",
-            //            Zip = "99978",
-            //        }},
-            //    { "work", new  Address() {
-            //            Street = "1600 Pennsylvania Avenue NW",
-            //            City = "Washington",
-            //            State = "District of Columbia",
-            //            Zip = "20500",
-            //        }},
-            //}
-            //        };
-
+            //Serialize the object into YAML
             ISerializer? serializer = new SerializerBuilder()
                 .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitDefaults) //New as of YamlDotNet 8.0.0:
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                                                                                    //.WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             string? yaml = serializer.Serialize(root);
-            //System.Console.WriteLine(yaml);
+
+            //I can't use - in variable names, so replace _ with -
+            yaml = yaml.Replace("package_ecosystem", "package-ecosystem");
 
             return yaml;
 

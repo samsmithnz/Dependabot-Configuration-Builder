@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace DCB.Tests
 {
@@ -13,28 +14,113 @@ namespace DCB.Tests
         {
             //arrange
             string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.Parent.FullName;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projectDirectory = projectDirectory?.Replace("\\", "/");
+            }
             string fileToSearch = "*.csproj";
 
             //act
             List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
 
-            YAMLParser yamlParser = new();
-            string yaml = yamlParser.CreateDependabotConfiguration(projectDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
             //assert
             string expected = @"version: 2
 updates:
-- packageEcosystem: nuget
-  directory: src\DCB\DCB.csproj
+- package-ecosystem: nuget
+  directory: Samples\Dotnet\Dotnet.csproj
   schedule:
     interval: daily
-- packageEcosystem: nuget
+- package-ecosystem: nuget
   directory: src\DCB.Tests\DCB.Tests.csproj
   schedule:
     interval: daily
+- package-ecosystem: nuget
+  directory: src\DCB\DCB.csproj
+  schedule:
+    interval: daily
 ";
+
+            //If it's a Linux runner, reverse the brackets
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                expected = expected.Replace("\\", "/");
+            }
             Assert.AreEqual(expected, yaml);
         }
+
+        [TestMethod]
+        public void ScanPomSampleProjectTest()
+        {
+            //arrange
+            string workingDirectory = Environment.CurrentDirectory;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            projectDirectory += "\\Samples\\Pom";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projectDirectory = projectDirectory.Replace("\\", "/");
+            }
+            string fileToSearch = "pom.xml";
+
+            //act
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
+
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+
+            //assert
+            string expected = @"version: 2
+updates:
+- package-ecosystem: maven
+  directory: pom.xml
+  schedule:
+    interval: daily
+";
+
+            //If it's a Linux runner, reverse the brackets
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                expected = expected.Replace("\\", "/");
+            }
+            Assert.AreEqual(expected, yaml);
+        }
+
+        [TestMethod]
+        public void ScanDotnetSampleProjectTest()
+        {
+            //arrange
+            string workingDirectory = Environment.CurrentDirectory;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            projectDirectory += "\\Samples\\Dotnet";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projectDirectory = projectDirectory.Replace("\\", "/");
+            }
+            string fileToSearch = "*.csproj";
+
+            //act
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory, fileToSearch);
+
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+
+            //assert
+            string expected = @"version: 2
+updates:
+- package-ecosystem: nuget
+  directory: Dotnet.csproj
+  schedule:
+    interval: daily
+";
+
+            //If it's a Linux runner, reverse the brackets
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                expected = expected.Replace("\\", "/");
+            }
+            Assert.AreEqual(expected, yaml);
+        }
+
+
     }
 }
