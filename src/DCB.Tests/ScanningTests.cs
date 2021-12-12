@@ -21,7 +21,13 @@ namespace DCB.Tests
 
             //assert
             string expected = @"version: 2
-updates: 
+updates:
+- packageEcosystem: nuget
+  directory: src\DCB\DCB.csproj
+  schedule: 
+- packageEcosystem: nuget
+  directory: src\DCB.Tests\DCB.Tests.csproj
+  schedule: 
 ";
             Assert.AreEqual(expected, yaml);
         }
