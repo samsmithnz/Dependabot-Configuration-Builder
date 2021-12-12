@@ -7,7 +7,7 @@ Currently scans for
 - csproj (.NET C# project files), defaulting to nuget
 - pom.xml (Java), defaulting to maven
 
-See issues for details. Current implementation is an evenings work to support NuGet, but this could potentially solve scale issues with Log4j/pom.xml.
+See issues for details. Current implementation is an evenings work to support .NET/NuGet and Java/Pom/Maven, but this could potentially solve scale issues with Log4j/pom.xml.
 
 See the [official docs](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates) for more options
 
