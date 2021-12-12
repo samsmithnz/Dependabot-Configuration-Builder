@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace DCB
+﻿namespace DCB
 {
     public class FileSearch
     {
