@@ -8,6 +8,10 @@
             string fileToSearch = "*.csproj";
             List<string> files = GetFilesForDirectory(startingDirectory, fileToSearch);
             Console.WriteLine(files.Count + " files found");
+
+            YAMLParser yamlParser = new YAMLParser();
+            string yaml = yamlParser.CreateDependabotConfiguration(files);
+            Console.WriteLine(yaml);
         }
 
         public static List<string> GetFilesForDirectory(string startingDirectory, string fileToSearch)

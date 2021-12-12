@@ -3,11 +3,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DCB.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class ScanningTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ScanTest()
         {
+            //arrange
+
+            //act
+
+            //assert
         }
     }
 }
