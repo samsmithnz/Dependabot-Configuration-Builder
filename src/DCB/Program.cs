@@ -5,11 +5,11 @@
         public static void Main(string[] args)
         {
             string workingDirectory = Environment.CurrentDirectory;
-            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-            Console.WriteLine(files.Count + " files found");
+            //string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            List<string> files = FileSearch.GetFilesForDirectory(workingDirectory);
+            Console.WriteLine(files.Count + " files found in " + workingDirectory);
 
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(workingDirectory, files);
             Console.WriteLine(yaml);
         }
     }
