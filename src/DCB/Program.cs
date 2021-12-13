@@ -4,11 +4,12 @@
     {
         public static void Main(string[] args)
         {
-            string startingDirectory = @"C:\Users\samsm\source\repos\Dependabot-Configuration-Builder";
-            List<string> files = FileSearch.GetFilesForDirectory(startingDirectory);
+            string workingDirectory = Environment.CurrentDirectory;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
             Console.WriteLine(files.Count + " files found");
 
-            string yaml = YAMLParser.CreateDependabotConfiguration(startingDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
             Console.WriteLine(yaml);
         }
     }

@@ -1,6 +1,5 @@
 ﻿using DCB.Models;
 using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace DCB
 {
@@ -42,7 +41,6 @@ namespace DCB
             //Serialize the object into YAML
             ISerializer? serializer = new SerializerBuilder()
                 .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitDefaults) //New as of YamlDotNet 8.0.0:
-                                                                                    //.WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             string? yaml = serializer.Serialize(root);
 
