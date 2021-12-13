@@ -30,6 +30,8 @@ namespace DCB
                 }
                 string cleanedFile = file.Replace(startingDirectory + "/", "");
                 cleanedFile = cleanedFile.Replace(startingDirectory + "\\", "");
+                cleanedFile = cleanedFile.Replace(fileInfo.Name, "");
+                cleanedFile = "/" + cleanedFile.Replace("\\", "/");
                 package.directory = cleanedFile;
                 package.schedule = new();
                 package.schedule.interval = "daily";
