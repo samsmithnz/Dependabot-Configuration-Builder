@@ -1,20 +1,18 @@
 version: 2
 updates:
 - package-ecosystem: nuget
-  directory: "/src/DBC"
+  directory: /samples/dotnet/
   schedule:
     interval: daily
-    time: "06:00"
-    timezone: America/New_York
-  open-pull-requests-limit: 10
-  assignees:
-    - "samsmithnz"
+- package-ecosystem: maven
+  directory: /samples/java/
+  schedule:
+    interval: daily
 - package-ecosystem: nuget
-  directory: "/src/DBC.Tests"
+  directory: /src/DCB.Tests/
   schedule:
     interval: daily
-    time: "06:00"
-    timezone: America/New_York
-  open-pull-requests-limit: 10
-  assignees:
-    - "samsmithnz"
+- package-ecosystem: nuget
+  directory: /src/DCB/
+  schedule:
+    interval: daily
