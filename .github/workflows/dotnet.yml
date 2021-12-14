@@ -43,7 +43,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: drop
-        path: src/DCB/bin/Release  
+        path: src/DCB/bin/Release/net6.0  
 
   Release:
     runs-on: ubuntu-latest
