@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DCB": {
+      "commandName": "Project",
+      "commandLineArgs": "-d C:\\Users\\samsm\\source\\repos\\Dependabot-Configuration-Builder\\src"
+    }
+  }
+}
