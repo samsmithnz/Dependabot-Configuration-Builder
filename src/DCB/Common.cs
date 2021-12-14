@@ -7,9 +7,9 @@
             List<string> files = new List<string>();
             files.Add("pom.xml");
             files.Add("package.json");
+            files.Add("nuget.config");
             files.Add("*.csproj");
             files.Add("*.vbproj");
-            files.Add("nuget.config");
             return files;
         }
 
