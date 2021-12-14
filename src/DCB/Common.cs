@@ -8,6 +8,8 @@
             files.Add("pom.xml");
             files.Add("package.json");
             files.Add("*.csproj");
+            files.Add("*.vbproj");
+            files.Add("nuget.config");
             return files;
         }
 
@@ -22,7 +24,9 @@
             {
                 result = "npm";
             }
-            else if (fileInfo.Extension == ".csproj")
+            else if (fileInfo.Name == "nuget.config" ||
+                fileInfo.Extension == ".csproj" ||
+                fileInfo.Extension == ".vbproj")
             {
                 result = "nuget";
             }
