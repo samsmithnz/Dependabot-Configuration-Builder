@@ -8,12 +8,10 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     outputs: 
       Version: ${{ steps.gitversion.outputs.SemVer }} 
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
-
     steps:
     - uses: actions/checkout@v2
       with:
@@ -44,6 +42,9 @@ jobs:
       with:
         name: drop
         path: src/DCB/bin/Release/net6.0  
+  
+#  buildLinux:
+#    runs-on: ubuntu-latest
 
   Release:
     runs-on: ubuntu-latest
@@ -66,7 +67,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
       with:
-        artifacts: drop/DCB
+        artifacts: drop/DCB.exe
         tag: ${{ needs.build.outputs.Version }}
         name: Release ${{ needs.build.outputs.Version }}
         token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
