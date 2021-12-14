@@ -15,22 +15,26 @@
 
         public static string GetPackageEcoSystemFromFileName(FileInfo fileInfo)
         {
-            string result = "";
+            string packageEcosystem = "";
             if (fileInfo.Name == "pom.xml")
             {
-                result = "maven";
+                packageEcosystem = "maven";
             }
             else if (fileInfo.Name == "package.json")
             {
-                result = "npm";
+                packageEcosystem = "npm";
             }
+            //else if (fileInfo.Name == "ruby.gems")
+            //{
+            //    result = "bundler";
+            //}
             else if (fileInfo.Name == "nuget.config" ||
                 fileInfo.Extension == ".csproj" ||
                 fileInfo.Extension == ".vbproj")
             {
-                result = "nuget";
+                packageEcosystem = "nuget";
             }
-            return result;
+            return packageEcosystem;
         }
     }
 }
