@@ -19,14 +19,7 @@ namespace DCB
             {
                 Package package = new();
                 FileInfo fileInfo = new(file);
-                if (fileInfo.Name == "pom.xml")
-                {
-                    package.package_ecosystem = "maven";
-                }
-                else if (fileInfo.Extension == ".csproj")
-                {
-                    package.package_ecosystem = "nuget";
-                }
+                package.package_ecosystem = Common.GetPackageEcoSystemFromFileName(fileInfo);
                 string cleanedFile = file.Replace(startingDirectory + "/", "");
                 cleanedFile = cleanedFile.Replace(startingDirectory + "\\", "");
                 cleanedFile = cleanedFile.Replace(fileInfo.Name, "");

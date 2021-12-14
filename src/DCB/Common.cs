@@ -10,5 +10,22 @@
             return files;
         }
 
+        public static string GetPackageEcoSystemFromFileName(FileInfo fileInfo)
+        {
+            string result = "";
+            if (fileInfo.Name == "pom.xml")
+            {
+                result = "maven";
+            }
+            else if (fileInfo.Name == "package.json")
+            {
+                result = "npm";
+            }
+            else if (fileInfo.Extension == ".csproj")
+            {
+                result = "nuget";
+            }
+            return result;
+        }
     }
 }

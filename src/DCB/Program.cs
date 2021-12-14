@@ -6,26 +6,22 @@ namespace DCB
     {
         public static void Main(string[] args)
         {
-            string workingDirectory = Environment.CurrentDirectory;
 
+            //Parse arguments
+            string workingDirectory = Environment.CurrentDirectory;
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
                 if (string.IsNullOrEmpty(o.Directory) == false)
                 {
                     workingDirectory = o.Directory;
-                    //Console.WriteLine($"Verbose output enabled. Current Arguments: -v {o.Verbose}");
-                    //Console.WriteLine("Quick Start Example! App is in Verbose mode!");
                 }
-                //else
-                //{
-                //    Console.WriteLine($"Current Arguments: -v {o.Verbose}");
-                //    Console.WriteLine("Quick Start Example!");
-                //}
             });
 
+            //Get a list of package files
             List<string> files = FileSearch.GetFilesForDirectory(workingDirectory);
             Console.WriteLine(files.Count + " files found in " + workingDirectory);
 
+            //Create the yaml
             string yaml = YAMLParser.CreateDependabotConfiguration(workingDirectory, files);
             Console.WriteLine(yaml);
         }
