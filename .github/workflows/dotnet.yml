@@ -58,6 +58,7 @@ jobs:
       uses: actions/download-artifact@v1.0.0
       with:
         name: drop    
+    - run: ls 
     - name: Create Release
       uses: ncipollo/release-action@v1
       if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
