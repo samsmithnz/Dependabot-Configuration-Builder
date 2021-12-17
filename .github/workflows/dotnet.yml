@@ -93,7 +93,7 @@ jobs:
         echo "Version: ${{ needs.build.outputs.Version }}" 
         echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
     - name: Download package artifact
-      uses: actions/download-artifact@v1.0.0
+      uses: actions/download-artifact@v2.1.0
       with:
         name: drop    
     - name: looking for the files
