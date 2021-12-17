@@ -37,7 +37,7 @@ updates:
   schedule:
     interval: daily
 - package-ecosystem: npm
-  directory: /samples/npm/
+  directory: /samples/javascript/
   schedule:
     interval: daily
 - package-ecosystem: nuget
@@ -138,6 +138,43 @@ updates:
             Assert.AreEqual(expected, yaml);
         }
 
+        [TestMethod]
+        public void ScanNPMSampleProjectTest()
+        {
+            //arrange
+            string workingDirectory = Environment.CurrentDirectory;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            projectDirectory += "\\samples\\javascript";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projectDirectory = projectDirectory.Replace("\\", "/");
+            }
+
+            //act
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+
+            //assert
+            string expected = @"version: 2
+updates:
+- package-ecosystem: npm
+  directory: /
+  schedule:
+    interval: daily
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: daily
+";
+
+            //If it's a Linux runner, reverse the brackets
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                expected = expected.Replace("\\", "/");
+            }
+            Assert.AreEqual(expected, yaml);
+        }
 
     }
 }
