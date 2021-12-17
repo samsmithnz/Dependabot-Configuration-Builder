@@ -4,27 +4,34 @@ updates:
   directory: /samples/dotnet/
   schedule:
     interval: daily
+  open-pull-requests-limit: 20
 - package-ecosystem: maven
   directory: /samples/java/
   schedule:
     interval: daily
+  open-pull-requests-limit: 20
 - package-ecosystem: npm
   directory: /samples/javascript/
   schedule:
     interval: daily
+  open-pull-requests-limit: 20
 - package-ecosystem: bundler
   directory: /samples/ruby/
   schedule:
     interval: daily
+  open-pull-requests-limit: 20
 - package-ecosystem: nuget
   directory: /src/DCB.Tests/
   schedule:
     interval: daily
+  open-pull-requests-limit: 20
 - package-ecosystem: nuget
   directory: /src/DCB/
   schedule:
     interval: daily
+  open-pull-requests-limit: 20
 - package-ecosystem: github-actions
   directory: /
   schedule:
     interval: daily
+  open-pull-requests-limit: 20
