@@ -78,8 +78,11 @@ jobs:
       run: |
         echo "Version: ${{ needs.version.outputs.Version }}" 
         echo "CommitsSinceVersionSource: ${{ needs.version.outputs.CommitsSinceVersionSource }}" 
-    - name: Download package artifact
+    - name: Download package artifacts
       uses: actions/download-artifact@v2.1.0
+    - run: |
+        cd Linux_x64
+        ls
     - name: Create Release
       uses: ncipollo/release-action@v1
       if: needs.version.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
