@@ -29,6 +29,13 @@ namespace DCB
                 package.schedule.interval = "daily";
                 packages.Add(package);
             }
+            //Add actions
+            Package actionsPackage = new();
+            actionsPackage.package_ecosystem = "github-actions";
+            actionsPackage.directory = "/";
+            actionsPackage.schedule = new();
+            actionsPackage.schedule.interval = "daily";
+            packages.Add(actionsPackage);
             root.updates = packages;
 
             //Serialize the object into YAML

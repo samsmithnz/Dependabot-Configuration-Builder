@@ -44,6 +44,10 @@ updates:
   directory: /src/DCB/
   schedule:
     interval: daily
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: daily
 ";
 
             //If it's a Linux runner, reverse the brackets
@@ -78,6 +82,10 @@ updates:
   directory: /
   schedule:
     interval: daily
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: daily
 ";
 
             //If it's a Linux runner, reverse the brackets
@@ -109,6 +117,10 @@ updates:
             string expected = @"version: 2
 updates:
 - package-ecosystem: nuget
+  directory: /
+  schedule:
+    interval: daily
+- package-ecosystem: github-actions
   directory: /
   schedule:
     interval: daily
