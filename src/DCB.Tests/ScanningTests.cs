@@ -40,6 +40,10 @@ updates:
   directory: /samples/javascript/
   schedule:
     interval: daily
+- package-ecosystem: bundler
+  directory: /samples/ruby/
+  schedule:
+    interval: daily
 - package-ecosystem: nuget
   directory: /src/DCB.Tests/
   schedule:
@@ -159,6 +163,44 @@ updates:
             string expected = @"version: 2
 updates:
 - package-ecosystem: npm
+  directory: /
+  schedule:
+    interval: daily
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: daily
+";
+
+            //If it's a Linux runner, reverse the brackets
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                expected = expected.Replace("\\", "/");
+            }
+            Assert.AreEqual(expected, yaml);
+        }
+
+        [TestMethod]
+        public void ScanRubySampleProjectTest()
+        {
+            //arrange
+            string workingDirectory = Environment.CurrentDirectory;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            projectDirectory += "\\samples\\ruby";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projectDirectory = projectDirectory.Replace("\\", "/");
+            }
+
+            //act
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+
+            //assert
+            string expected = @"version: 2
+updates:
+- package-ecosystem: bundler
   directory: /
   schedule:
     interval: daily

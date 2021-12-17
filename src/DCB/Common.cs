@@ -10,6 +10,7 @@
             files.Add("nuget.config");
             files.Add("*.csproj");
             files.Add("*.vbproj");
+            files.Add("Gemfile");
             return files;
         }
 
@@ -26,7 +27,7 @@
             }
             else if (fileInfo.Name == "Gemfile")
             {
-                result = "bundler";
+                packageEcosystem = "bundler";
             }
             else if (fileInfo.Name == "nuget.config" ||
                 fileInfo.Extension == ".csproj" ||
