@@ -36,6 +36,10 @@ updates:
   directory: /samples/java/
   schedule:
     interval: daily
+- package-ecosystem: npm
+  directory: /samples/npm/
+  schedule:
+    interval: daily
 - package-ecosystem: nuget
   directory: /src/DCB.Tests/
   schedule:
