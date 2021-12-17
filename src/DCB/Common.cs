@@ -24,10 +24,10 @@
             {
                 packageEcosystem = "npm";
             }
-            //else if (fileInfo.Name == "ruby.gems")
-            //{
-            //    result = "bundler";
-            //}
+            else if (fileInfo.Name == "Gemfile")
+            {
+                result = "bundler";
+            }
             else if (fileInfo.Name == "nuget.config" ||
                 fileInfo.Extension == ".csproj" ||
                 fileInfo.Extension == ".vbproj")
