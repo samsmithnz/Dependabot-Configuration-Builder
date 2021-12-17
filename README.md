@@ -4,8 +4,10 @@ Given a repository, scan all files for packages and generate the Dependabot conf
 [![.NET](https://github.com/samsmithnz/Dependabot-Configuration-Builder/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/Dependabot-Configuration-Builder/actions/workflows/dotnet.yml)
 
 Currently scans for
-- csproj (.NET C# project files), defaulting to nuget
+- NuGet (nuget.config, csproj, and vbproj, defaulting to nuget)
 - pom.xml (Java), defaulting to maven
+- package.json, defaulting to npm
+- GitHub actions
 
 See issues for details. Current implementation is an evenings work to support .NET/NuGet and Java/Pom/Maven, but this could potentially solve scale issues with Log4j/pom.xml.
 
