@@ -96,6 +96,7 @@ jobs:
       uses: actions/download-artifact@v2.1.0
       with:
         name: drop    
+        path: drop
     - name: looking for the files
       run: |
         cd drop
