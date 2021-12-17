@@ -59,7 +59,7 @@ jobs:
     - name: zip files
       run: |
         Compress-Archive -Path '${{ github.workspace }}\${{ needs.version.outputs.Version }}_${{ matrix.ChannelName }}\' `
-        -DestinationPath ${{ github.workspace }}\${{ matrix.ChannelName }}\DCB.${{ matrix.ChannelName }}.${{ env.GitBuildVersionSimple }}.zip
+        -DestinationPath ${{ github.workspace }}\${{ matrix.ChannelName }}\DCB.${{ matrix.ChannelName }}.${{ needs.version.outputs.Version }}.zip
       shell: powershell
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2
@@ -80,14 +80,11 @@ jobs:
         echo "CommitsSinceVersionSource: ${{ needs.version.outputs.CommitsSinceVersionSource }}" 
     - name: Download package artifacts
       uses: actions/download-artifact@v2.1.0
-    - run: |
-        cd Linux_x64
-        ls
     - name: Create Release
       uses: ncipollo/release-action@v1
       if: needs.version.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
       with:
-        artifacts: Linux_x64,MacOS_x64,Windows_x64
+        artifacts: Linux_x64/DCB.Linux_x64.${{ needs.version.outputs.Version }}.zip,MacOS_x64/DCB.MacOS_x64.${{ needs.version.outputs.Version }}.zip,Windows_x64/DCB.Windows_x64.${{ needs.version.outputs.Version }}.zip
         tag: ${{ needs.version.outputs.Version }}
         name: Release ${{ needs.version.outputs.Version }}
         token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
