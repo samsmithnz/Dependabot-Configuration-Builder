@@ -4,7 +4,7 @@
     {
         public static List<string> GetFileTypesToSearch()
         {
-            List<string> files = new List<string>();
+            List<string> files = new();
             files.Add("pom.xml");
             files.Add("package.json");
             files.Add("nuget.config");

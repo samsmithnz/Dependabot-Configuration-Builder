@@ -29,7 +29,7 @@ namespace DCB
         public class Options
         {
             [Option('d', "dir", Required = false, HelpText = "set working directory")]
-            public string Directory { get; set; }
+            public string? Directory { get; set; }
         }
     }
 }
