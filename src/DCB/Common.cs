@@ -10,6 +10,7 @@
             files.Add("nuget.config");
             files.Add("*.csproj");
             files.Add("*.vbproj");
+            files.Add("Gemfile");
             return files;
         }
 
@@ -24,10 +25,10 @@
             {
                 packageEcosystem = "npm";
             }
-            //else if (fileInfo.Name == "ruby.gems")
-            //{
-            //    result = "bundler";
-            //}
+            else if (fileInfo.Name == "Gemfile")
+            {
+                packageEcosystem = "bundler";
+            }
             else if (fileInfo.Name == "nuget.config" ||
                 fileInfo.Extension == ".csproj" ||
                 fileInfo.Extension == ".vbproj")
