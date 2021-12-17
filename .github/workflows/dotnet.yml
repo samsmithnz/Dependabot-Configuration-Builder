@@ -72,7 +72,7 @@ jobs:
     needs: 
     - build
     - version
-    #if: github.ref == 'refs/heads/main'      
+    if: github.ref == 'refs/heads/main'      
     steps:
     - name: Display GitVersion outputs
       run: |
