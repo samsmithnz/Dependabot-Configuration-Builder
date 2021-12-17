@@ -38,7 +38,7 @@ jobs:
         include:
         - ChannelName: Windows_x64_x86
           RID: win-x64
-        - ChannelName: macOS_x64
+        - ChannelName: MacOS_x64
           RID: osx-x64
         - ChannelName: Linux_x64
           RID: linux-x64
