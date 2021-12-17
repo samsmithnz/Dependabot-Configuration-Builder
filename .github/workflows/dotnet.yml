@@ -36,7 +36,7 @@ jobs:
     strategy:
       matrix:
         include:
-        - ChannelName: Windows_x64_x86
+        - ChannelName: Windows_x64
           RID: win-x64
         - ChannelName: MacOS_x64
           RID: osx-x64
