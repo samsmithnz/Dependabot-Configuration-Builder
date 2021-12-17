@@ -40,6 +40,10 @@ updates:
   directory: /samples/javascript/
   schedule:
     interval: daily
+- package-ecosystem: pip
+  directory: /samples/python/
+  schedule:
+    interval: daily
 - package-ecosystem: bundler
   directory: /samples/ruby/
   schedule:
@@ -201,6 +205,44 @@ updates:
             string expected = @"version: 2
 updates:
 - package-ecosystem: bundler
+  directory: /
+  schedule:
+    interval: daily
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: daily
+";
+
+            //If it's a Linux runner, reverse the brackets
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                expected = expected.Replace("\\", "/");
+            }
+            Assert.AreEqual(expected, yaml);
+        }
+
+        [TestMethod]
+        public void ScanPythonSampleProjectTest()
+        {
+            //arrange
+            string workingDirectory = Environment.CurrentDirectory;
+            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+            projectDirectory += "\\samples\\python";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projectDirectory = projectDirectory.Replace("\\", "/");
+            }
+
+            //act
+            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+
+            //assert
+            string expected = @"version: 2
+updates:
+- package-ecosystem: pip
   directory: /
   schedule:
     interval: daily

@@ -8,6 +8,7 @@ Currently scans for
 - pom.xml (Java), defaulting to maven
 - package.json (JavaScript), defaulting to npm
 - Gemfile (Ruby), defaulting to bundler 
+- requirements.txt (Python), defaulting to pip
 - GitHub actions
 
 See issues for details. Current implementation is an evenings work to support .NET/NuGet and Java/Pom/Maven, but this could potentially solve scale issues with Log4j/pom.xml.
@@ -28,12 +29,28 @@ updates:
   directory: /samples/java/
   schedule:
     interval: daily
+- package-ecosystem: npm
+  directory: /samples/javascript/
+  schedule:
+    interval: daily
+- package-ecosystem: pip
+  directory: /samples/python/
+  schedule:
+    interval: daily
+- package-ecosystem: bundler
+  directory: /samples/ruby/
+  schedule:
+    interval: daily
 - package-ecosystem: nuget
   directory: /src/DCB.Tests/
   schedule:
     interval: daily
 - package-ecosystem: nuget
   directory: /src/DCB/
+  schedule:
+    interval: daily
+- package-ecosystem: github-actions
+  directory: /
   schedule:
     interval: daily
 ```
