@@ -4,7 +4,7 @@ Given a repository, scan all files for packages and generate the Dependabot conf
 [![.NET](https://github.com/samsmithnz/Dependabot-Configuration-Builder/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/Dependabot-Configuration-Builder/actions/workflows/dotnet.yml)
 
 Currently scans for
-|--|--|--|
+
 | File | System | Package |
 |--|--|--|
 | nuget.config, *.csproj, *.vbproj | .NET | NuGet |
@@ -13,13 +13,6 @@ Currently scans for
 | Gemfile, Gemfile.lock | Ruby | bundler |
 | requirements.txt | Python | pip |
 | *.yml | GitHub Actions | GitHub Actions |
-
-- NuGet (nuget.config, csproj, and vbproj, defaulting to nuget)
-- pom.xml (Java), defaulting to maven
-- package.json (JavaScript), defaulting to npm
-- Gemfile (Ruby), defaulting to bundler 
-- requirements.txt (Python), defaulting to pip
-- GitHub actions
 
 See issues for details.
 
