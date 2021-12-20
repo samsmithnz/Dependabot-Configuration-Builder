@@ -4,30 +4,31 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace DCB.Tests
+namespace DCB.Tests;
+
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+[TestClass]
+public class ScanningTests
 {
-    [TestClass]
-    public class ScanningTests
+    [TestMethod]
+    public void ScanThisProjectTest()
     {
-        [TestMethod]
-        public void ScanThisProjectTest()
+        //arrange
+        string workingDirectory = Environment.CurrentDirectory;
+        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            //arrange
-            string workingDirectory = Environment.CurrentDirectory;
-            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                projectDirectory = projectDirectory?.Replace("\\", "/");
-            }
-            string[] assignees = new string[] { "samsmithnz" };
-            int openPRLimit = 10;
+            projectDirectory = projectDirectory?.Replace("\\", "/");
+        }
+        string[] assignees = new string[] { "samsmithnz" };
+        int openPRLimit = 10;
 
-            //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees, openPRLimit);
+        //act
+        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees, openPRLimit);
 
-            //assert
-            string expected = @"version: 2
+        //assert
+        string expected = @"version: 2
 updates:
 - package-ecosystem: nuget
   directory: /samples/dotnet/
@@ -71,33 +72,33 @@ updates:
   open-pull-requests-limit: 10
 ";
 
-            //If it's a Linux runner, reverse the brackets
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                expected = expected.Replace("\\", "/");
-            }
-            Assert.AreEqual(expected, yaml);
+        //If it's a Linux runner, reverse the brackets
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            expected = expected.Replace("\\", "/");
+        }
+        Assert.AreEqual(expected, yaml);
+    }
+
+    [TestMethod]
+    public void ScanPomSampleProjectTest()
+    {
+        //arrange
+        string workingDirectory = Environment.CurrentDirectory;
+        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+        projectDirectory += "\\samples\\java";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            projectDirectory = projectDirectory.Replace("\\", "/");
         }
 
-        [TestMethod]
-        public void ScanPomSampleProjectTest()
-        {
-            //arrange
-            string workingDirectory = Environment.CurrentDirectory;
-            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            projectDirectory += "\\samples\\java";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                projectDirectory = projectDirectory.Replace("\\", "/");
-            }
+        //act
+        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
 
-            //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
-
-            //assert
-            string expected = @"version: 2
+        //assert
+        string expected = @"version: 2
 updates:
 - package-ecosystem: maven
   directory: /
@@ -109,34 +110,34 @@ updates:
     interval: daily
 ";
 
-            //If it's a Linux runner, reverse the brackets
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                expected = expected.Replace("\\", "/");
-            }
-            Assert.AreEqual(expected, yaml);
-        }
-
-        [TestMethod]
-        public void ScanDotnetSampleProjectTest()
+        //If it's a Linux runner, reverse the brackets
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            //arrange
-            string workingDirectory = Environment.CurrentDirectory;
-            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            projectDirectory += "\\samples\\dotnet";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                projectDirectory = projectDirectory.Replace("\\", "/");
-            }
-            string[] assignees = new string[] { "samsmithnz" };
-            int openPRLimit = 10;
+            expected = expected.Replace("\\", "/");
+        }
+        Assert.AreEqual(expected, yaml);
+    }
 
-            //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees, openPRLimit);
+    [TestMethod]
+    public void ScanDotnetSampleProjectTest()
+    {
+        //arrange
+        string workingDirectory = Environment.CurrentDirectory;
+        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+        projectDirectory += "\\samples\\dotnet";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            projectDirectory = projectDirectory.Replace("\\", "/");
+        }
+        string[] assignees = new string[] { "samsmithnz" };
+        int openPRLimit = 10;
 
-            //assert
-            string expected = @"version: 2
+        //act
+        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees, openPRLimit);
+
+        //assert
+        string expected = @"version: 2
 updates:
 - package-ecosystem: nuget
   directory: /
@@ -150,33 +151,33 @@ updates:
   open-pull-requests-limit: 10
 ";
 
-            //If it's a Linux runner, reverse the brackets
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                expected = expected.Replace("\\", "/");
-            }
-            Assert.AreEqual(expected, yaml);
+        //If it's a Linux runner, reverse the brackets
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            expected = expected.Replace("\\", "/");
+        }
+        Assert.AreEqual(expected, yaml);
+    }
+
+    [TestMethod]
+    public void ScanNPMSampleProjectTest()
+    {
+        //arrange
+        string workingDirectory = Environment.CurrentDirectory;
+        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+        projectDirectory += "\\samples\\javascript";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            projectDirectory = projectDirectory.Replace("\\", "/");
         }
 
-        [TestMethod]
-        public void ScanNPMSampleProjectTest()
-        {
-            //arrange
-            string workingDirectory = Environment.CurrentDirectory;
-            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            projectDirectory += "\\samples\\javascript";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                projectDirectory = projectDirectory.Replace("\\", "/");
-            }
+        //act
+        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
 
-            //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
-
-            //assert
-            string expected = @"version: 2
+        //assert
+        string expected = @"version: 2
 updates:
 - package-ecosystem: npm
   directory: /
@@ -188,33 +189,33 @@ updates:
     interval: daily
 ";
 
-            //If it's a Linux runner, reverse the brackets
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                expected = expected.Replace("\\", "/");
-            }
-            Assert.AreEqual(expected, yaml);
+        //If it's a Linux runner, reverse the brackets
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            expected = expected.Replace("\\", "/");
+        }
+        Assert.AreEqual(expected, yaml);
+    }
+
+    [TestMethod]
+    public void ScanRubySampleProjectTest()
+    {
+        //arrange
+        string workingDirectory = Environment.CurrentDirectory;
+        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+        projectDirectory += "\\samples\\ruby";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            projectDirectory = projectDirectory.Replace("\\", "/");
         }
 
-        [TestMethod]
-        public void ScanRubySampleProjectTest()
-        {
-            //arrange
-            string workingDirectory = Environment.CurrentDirectory;
-            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            projectDirectory += "\\samples\\ruby";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                projectDirectory = projectDirectory.Replace("\\", "/");
-            }
+        //act
+        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
 
-            //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
-
-            //assert
-            string expected = @"version: 2
+        //assert
+        string expected = @"version: 2
 updates:
 - package-ecosystem: bundler
   directory: /
@@ -226,33 +227,33 @@ updates:
     interval: daily
 ";
 
-            //If it's a Linux runner, reverse the brackets
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                expected = expected.Replace("\\", "/");
-            }
-            Assert.AreEqual(expected, yaml);
+        //If it's a Linux runner, reverse the brackets
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            expected = expected.Replace("\\", "/");
+        }
+        Assert.AreEqual(expected, yaml);
+    }
+
+    [TestMethod]
+    public void ScanPythonSampleProjectTest()
+    {
+        //arrange
+        string workingDirectory = Environment.CurrentDirectory;
+        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+        projectDirectory += "\\samples\\python";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            projectDirectory = projectDirectory.Replace("\\", "/");
         }
 
-        [TestMethod]
-        public void ScanPythonSampleProjectTest()
-        {
-            //arrange
-            string workingDirectory = Environment.CurrentDirectory;
-            string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-            projectDirectory += "\\samples\\python";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                projectDirectory = projectDirectory.Replace("\\", "/");
-            }
+        //act
+        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
 
-            //act
-            List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
 
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
-
-            //assert
-            string expected = @"version: 2
+        //assert
+        string expected = @"version: 2
 updates:
 - package-ecosystem: pip
   directory: /
@@ -264,13 +265,12 @@ updates:
     interval: daily
 ";
 
-            //If it's a Linux runner, reverse the brackets
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                expected = expected.Replace("\\", "/");
-            }
-            Assert.AreEqual(expected, yaml);
+        //If it's a Linux runner, reverse the brackets
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            expected = expected.Replace("\\", "/");
         }
-
+        Assert.AreEqual(expected, yaml);
     }
+
 }
