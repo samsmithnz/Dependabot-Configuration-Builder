@@ -9,6 +9,7 @@ namespace DCB
             //Parse arguments
             string workingDirectory = Environment.CurrentDirectory;
             string[] assignees = null;
+            int openPRRequestsLimit = 0;
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
                 if (string.IsNullOrEmpty(o.Directory) == false)
@@ -18,6 +19,13 @@ namespace DCB
                 if (string.IsNullOrEmpty(o.Assignees) == false)
                 {
                     assignees = o.Assignees.Split(',');
+                }
+                if (string.IsNullOrEmpty(o.OpenPullRequestsLimit) == false)
+                {
+                    if (int.TryParse(o.OpenPullRequestsLimit, out openPRRequestsLimit))
+                    {
+                        //do nothing
+                    }
                 }
             });
 
@@ -37,6 +45,9 @@ namespace DCB
 
             [Option('a', "assignees", Required = false, HelpText = "set assignees, comma separated")]
             public string? Assignees { get; set; }
+
+            [Option('p', "prlimit", Required = false, HelpText = "set max number of open pull requests")]
+            public string? OpenPullRequestsLimit { get; set; }
         }
     }
 }

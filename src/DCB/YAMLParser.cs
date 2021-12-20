@@ -17,7 +17,6 @@ namespace DCB
             }
 
             Root root = new();
-
             List<Package> packages = new();
             foreach (string file in files)
             {
