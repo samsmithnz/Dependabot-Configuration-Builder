@@ -10,6 +10,55 @@ namespace DCB.Tests;
 [TestClass]
 public class ScanningTests
 {
+
+    [TestMethod]
+    public void ScanDotnetSampleProjectTest()
+    {
+        //arrange
+        string workingDirectory = Environment.CurrentDirectory;
+        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+        projectDirectory += "\\samples\\dotnet";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            projectDirectory = projectDirectory.Replace("\\", "/");
+        }
+        string[] assignees = new string[] { "samsmithnz" };
+        int openPRLimit = 10;
+        string interval = "daily";
+        string time = "06:00";
+        string timezone = "America/New_York";
+
+        //act
+        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval, time, timezone, assignees, openPRLimit);
+
+        //assert
+        string expected = @"version: 2
+updates:
+- package-ecosystem: nuget
+  directory: /
+  schedule:
+    interval: daily
+    time: 06:00
+    timezone: America/New_York
+  open-pull-requests-limit: 10
+- package-ecosystem: github-actions
+  directory: /
+  schedule:
+    interval: daily
+    time: 06:00
+    timezone: America/New_York
+  open-pull-requests-limit: 10
+";
+
+        //If it's a Linux runner, reverse the brackets
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            expected = expected.Replace("\\", "/");
+        }
+        Assert.AreEqual(expected, yaml);
+    }
+
     [TestMethod]
     public void ScanThisProjectTest()
     {
@@ -25,7 +74,7 @@ public class ScanningTests
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees, openPRLimit);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, "daily", null, null, assignees, openPRLimit);
 
         //assert
         string expected = @"version: 2
@@ -91,11 +140,11 @@ updates:
         {
             projectDirectory = projectDirectory.Replace("\\", "/");
         }
+        string interval = "daily";
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval);
 
         //assert
         string expected = @"version: 2
@@ -119,47 +168,6 @@ updates:
     }
 
     [TestMethod]
-    public void ScanDotnetSampleProjectTest()
-    {
-        //arrange
-        string workingDirectory = Environment.CurrentDirectory;
-        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
-        projectDirectory += "\\samples\\dotnet";
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            projectDirectory = projectDirectory.Replace("\\", "/");
-        }
-        string[] assignees = new string[] { "samsmithnz" };
-        int openPRLimit = 10;
-
-        //act
-        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees, openPRLimit);
-
-        //assert
-        string expected = @"version: 2
-updates:
-- package-ecosystem: nuget
-  directory: /
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-- package-ecosystem: github-actions
-  directory: /
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-";
-
-        //If it's a Linux runner, reverse the brackets
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            expected = expected.Replace("\\", "/");
-        }
-        Assert.AreEqual(expected, yaml);
-    }
-
-    [TestMethod]
     public void ScanNPMSampleProjectTest()
     {
         //arrange
@@ -170,11 +178,11 @@ updates:
         {
             projectDirectory = projectDirectory.Replace("\\", "/");
         }
+        string interval = "daily";
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval);
 
         //assert
         string expected = @"version: 2
@@ -208,11 +216,11 @@ updates:
         {
             projectDirectory = projectDirectory.Replace("\\", "/");
         }
+        string interval = "daily";
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval);
 
         //assert
         string expected = @"version: 2
@@ -246,11 +254,11 @@ updates:
         {
             projectDirectory = projectDirectory.Replace("\\", "/");
         }
+        string interval = "daily";
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval);
 
         //assert
         string expected = @"version: 2

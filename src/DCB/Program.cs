@@ -34,7 +34,7 @@ namespace DCB
             Console.WriteLine(files.Count + " files found in " + workingDirectory);
 
             //Create the yaml
-            string yaml = YAMLParser.CreateDependabotConfiguration(workingDirectory, files, assignees);
+            string yaml = YAMLParser.CreateDependabotConfiguration(workingDirectory, files, "daily", null, null, assignees);
             Console.WriteLine(yaml);
         }
 
