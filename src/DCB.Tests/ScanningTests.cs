@@ -22,7 +22,7 @@ public class ScanningTests
         {
             projectDirectory = projectDirectory.Replace("\\", "/");
         }
-        string[] assignees = new string[] { "samsmithnz" };
+        List<string> assignees = new() { "samsmithnz" };
         int openPRLimit = 10;
         string interval = "daily";
         string time = "06:00";
@@ -41,6 +41,8 @@ updates:
     interval: daily
     time: 06:00
     timezone: America/New_York
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: github-actions
   directory: /
@@ -48,6 +50,8 @@ updates:
     interval: daily
     time: 06:00
     timezone: America/New_York
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 ";
 
@@ -69,7 +73,7 @@ updates:
         {
             projectDirectory = projectDirectory?.Replace("\\", "/");
         }
-        string[] assignees = new string[] { "samsmithnz" };
+        List<string> assignees = null;// new() { "samsmithnz" };
         int openPRLimit = 10;
 
         //act
