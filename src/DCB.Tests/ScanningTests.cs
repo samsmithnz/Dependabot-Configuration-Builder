@@ -20,10 +20,11 @@ namespace DCB.Tests
                 projectDirectory = projectDirectory?.Replace("\\", "/");
             }
             string[] assignees = new string[] { "samsmithnz" };
+            int openPRLimit = 10;
 
             //act
             List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees);
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees, openPRLimit);
 
             //assert
             string expected = @"version: 2
@@ -32,34 +33,42 @@ updates:
   directory: /samples/dotnet/
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 - package-ecosystem: maven
   directory: /samples/java/
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 - package-ecosystem: npm
   directory: /samples/javascript/
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 - package-ecosystem: pip
   directory: /samples/python/
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 - package-ecosystem: bundler
   directory: /samples/ruby/
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 - package-ecosystem: nuget
   directory: /src/DCB.Tests/
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 - package-ecosystem: nuget
   directory: /src/DCB/
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 - package-ecosystem: github-actions
   directory: /
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 ";
 
             //If it's a Linux runner, reverse the brackets
@@ -120,10 +129,11 @@ updates:
                 projectDirectory = projectDirectory.Replace("\\", "/");
             }
             string[] assignees = new string[] { "samsmithnz" };
+            int openPRLimit = 10;
 
             //act
             List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees);
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees, openPRLimit);
 
             //assert
             string expected = @"version: 2
@@ -132,10 +142,12 @@ updates:
   directory: /
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 - package-ecosystem: github-actions
   directory: /
   schedule:
     interval: daily
+  open-pull-requests-limit: 10
 ";
 
             //If it's a Linux runner, reverse the brackets

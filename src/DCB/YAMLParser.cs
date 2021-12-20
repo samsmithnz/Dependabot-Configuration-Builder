@@ -8,6 +8,7 @@ namespace DCB
         public static string CreateDependabotConfiguration(string? startingDirectory,
             List<string> files,
             string[]? assignees = null,
+            int openPRLimit = 0,
             bool includeActions = true)
         {
             if (startingDirectory == null)
@@ -33,6 +34,10 @@ namespace DCB
                     interval = "daily"
                 };
                 //package.assignees = assignees;
+                if (openPRLimit > 0)
+                {
+                    package.open_pull_requests_limit = openPRLimit.ToString();
+                }
                 packages.Add(package);
             }
             //Add actions
@@ -46,6 +51,10 @@ namespace DCB
                     interval = "daily"
                 };
                 //actionsPackage.assignees = assignees;
+                if (openPRLimit > 0)
+                {
+                    actionsPackage.open_pull_requests_limit = openPRLimit.ToString();
+                }
                 packages.Add(actionsPackage);
             }
             root.updates = packages;
@@ -58,6 +67,7 @@ namespace DCB
 
             //I can't use - in variable names, so replace _ with -
             yaml = yaml.Replace("package_ecosystem", "package-ecosystem");
+            yaml = yaml.Replace("open_pull_requests_limit", "open-pull-requests-limit");
             //yaml = yaml.Replace("*o0", "");
             //yaml = yaml.Replace("&o0", "");
 
