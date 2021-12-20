@@ -47,31 +47,31 @@ public class YAMLParser
             }
             packages.Add(package);
         }
-        ////Add actions
-        //if (includeActions == true)
-        //{
-        //    Package actionsPackage = new();
-        //    actionsPackage.package_ecosystem = "github-actions";
-        //    actionsPackage.directory = "/";
-        //    actionsPackage.schedule = new()
-        //    {
-        //        interval = interval
-        //    };
-        //    if (time != null)
-        //    {
-        //        actionsPackage.schedule.time = time;
-        //    }
-        //    if (timezone != null)
-        //    {
-        //        actionsPackage.schedule.timezone = timezone;
-        //    }
-        //    actionsPackage.assignees = assignees;
-        //    if (openPRLimit > 0)
-        //    {
-        //        actionsPackage.open_pull_requests_limit = openPRLimit.ToString();
-        //    }
-        //    packages.Add(actionsPackage);
-        //}
+        //Add actions
+        if (includeActions == true)
+        {
+            Package actionsPackage = new();
+            actionsPackage.package_ecosystem = "github-actions";
+            actionsPackage.directory = "/";
+            actionsPackage.schedule = new()
+            {
+                interval = interval
+            };
+            if (time != null)
+            {
+                actionsPackage.schedule.time = time;
+            }
+            if (timezone != null)
+            {
+                actionsPackage.schedule.timezone = timezone;
+            }
+            actionsPackage.assignees = assignees;
+            if (openPRLimit > 0)
+            {
+                actionsPackage.open_pull_requests_limit = openPRLimit.ToString();
+            }
+            packages.Add(actionsPackage);
+        }
         root.updates = packages;
 
         //Serialize the object into YAML
