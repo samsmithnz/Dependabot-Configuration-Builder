@@ -77,14 +77,13 @@ public class YAMLParser
         //Serialize the object into YAML
         ISerializer serializer = new SerializerBuilder()
             .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitDefaults) //New as of YamlDotNet 8.0.0:
+            .DisableAliases()
             .Build();
         string? yaml = serializer.Serialize(root);
 
         //I can't use - in variable names, so replace _ with -
         yaml = yaml.Replace("package_ecosystem", "package-ecosystem");
         yaml = yaml.Replace("open_pull_requests_limit", "open-pull-requests-limit");
-        //yaml = yaml.Replace("*o0", "");
-        //yaml = yaml.Replace("&o0", "");
 
         return yaml;
     }

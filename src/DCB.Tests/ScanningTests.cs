@@ -41,6 +41,8 @@ updates:
     interval: daily
     time: 06:00
     timezone: America/New_York
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: github-actions
   directory: /
@@ -48,6 +50,8 @@ updates:
     interval: daily
     time: 06:00
     timezone: America/New_York
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 ";
 
