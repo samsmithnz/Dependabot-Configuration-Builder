@@ -5,7 +5,10 @@ namespace DCB
 {
     public class YAMLParser
     {
-        public static string CreateDependabotConfiguration(string? startingDirectory, List<string> files)
+        public static string CreateDependabotConfiguration(string? startingDirectory,
+            List<string> files,
+            string[]? assignees = null,
+            bool includeActions = true)
         {
             if (startingDirectory == null)
             {
@@ -25,17 +28,26 @@ namespace DCB
                 cleanedFile = cleanedFile.Replace(fileInfo.Name, "");
                 cleanedFile = "/" + cleanedFile.Replace("\\", "/");
                 package.directory = cleanedFile;
-                package.schedule = new();
-                package.schedule.interval = "daily";
+                package.schedule = new()
+                {
+                    interval = "daily"
+                };
+                //package.assignees = assignees;
                 packages.Add(package);
             }
             //Add actions
-            Package actionsPackage = new();
-            actionsPackage.package_ecosystem = "github-actions";
-            actionsPackage.directory = "/";
-            actionsPackage.schedule = new();
-            actionsPackage.schedule.interval = "daily";
-            packages.Add(actionsPackage);
+            if (includeActions == true)
+            {
+                Package actionsPackage = new();
+                actionsPackage.package_ecosystem = "github-actions";
+                actionsPackage.directory = "/";
+                actionsPackage.schedule = new()
+                {
+                    interval = "daily"
+                };
+                //actionsPackage.assignees = assignees;
+                packages.Add(actionsPackage);
+            }
             root.updates = packages;
 
             //Serialize the object into YAML
@@ -46,11 +58,11 @@ namespace DCB
 
             //I can't use - in variable names, so replace _ with -
             yaml = yaml.Replace("package_ecosystem", "package-ecosystem");
+            //yaml = yaml.Replace("*o0", "");
+            //yaml = yaml.Replace("&o0", "");
 
             return yaml;
-
         }
-
 
     }
 }

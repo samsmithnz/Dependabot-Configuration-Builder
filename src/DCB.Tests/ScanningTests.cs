@@ -19,11 +19,11 @@ namespace DCB.Tests
             {
                 projectDirectory = projectDirectory?.Replace("\\", "/");
             }
+            string[] assignees = new string[] { "samsmithnz" };
 
             //act
             List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees);
 
             //assert
             string expected = @"version: 2
@@ -119,11 +119,11 @@ updates:
             {
                 projectDirectory = projectDirectory.Replace("\\", "/");
             }
+            string[] assignees = new string[] { "samsmithnz" };
 
             //act
             List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-
-            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, assignees);
 
             //assert
             string expected = @"version: 2
