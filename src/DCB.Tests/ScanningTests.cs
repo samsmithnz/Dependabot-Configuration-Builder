@@ -73,7 +73,7 @@ updates:
         {
             projectDirectory = projectDirectory?.Replace("\\", "/");
         }
-        List<string> assignees = null;// new() { "samsmithnz" };
+        List<string> assignees = new() { "samsmithnz" };
         int openPRLimit = 10;
 
         //act
@@ -87,41 +87,57 @@ updates:
   directory: /samples/dotnet/
   schedule:
     interval: daily
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: maven
   directory: /samples/java/
   schedule:
     interval: daily
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: npm
   directory: /samples/javascript/
   schedule:
     interval: daily
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: pip
   directory: /samples/python/
   schedule:
     interval: daily
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: bundler
   directory: /samples/ruby/
   schedule:
     interval: daily
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: nuget
   directory: /src/DCB.Tests/
   schedule:
     interval: daily
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: nuget
   directory: /src/DCB/
   schedule:
     interval: daily
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 - package-ecosystem: github-actions
   directory: /
   schedule:
     interval: daily
+  assignees:
+  - samsmithnz
   open-pull-requests-limit: 10
 ";
 
