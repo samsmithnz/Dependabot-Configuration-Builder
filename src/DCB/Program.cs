@@ -8,7 +8,7 @@ namespace DCB
         {
             //Parse arguments
             string workingDirectory = Environment.CurrentDirectory;
-            string[] assignees = null;
+            List<string>? assignees = null;
             int openPRRequestsLimit = 0;
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
@@ -18,7 +18,7 @@ namespace DCB
                 }
                 if (string.IsNullOrEmpty(o.Assignees) == false)
                 {
-                    assignees = o.Assignees.Split(',');
+                    assignees = o.Assignees.Split(',').ToList<string>();
                 }
                 if (string.IsNullOrEmpty(o.OpenPullRequestsLimit) == false)
                 {

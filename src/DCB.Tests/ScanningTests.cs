@@ -22,7 +22,7 @@ public class ScanningTests
         {
             projectDirectory = projectDirectory.Replace("\\", "/");
         }
-        string[] assignees = new string[] { "samsmithnz" };
+        List<string> assignees = new() { "samsmithnz" };
         int openPRLimit = 10;
         string interval = "daily";
         string time = "06:00";
@@ -69,7 +69,7 @@ updates:
         {
             projectDirectory = projectDirectory?.Replace("\\", "/");
         }
-        string[] assignees = new string[] { "samsmithnz" };
+        List<string> assignees = new() { "samsmithnz" };
         int openPRLimit = 10;
 
         //act

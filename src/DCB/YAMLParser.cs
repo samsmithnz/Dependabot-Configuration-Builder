@@ -11,7 +11,7 @@ public class YAMLParser
         string? interval = null,
         string? time = null,
         string? timezone = null,
-        string[]? assignees = null,
+        List<string>? assignees = null,
         int openPRLimit = 0,
         bool includeActions = true)
     {
@@ -24,62 +24,58 @@ public class YAMLParser
         List<Package> packages = new();
         foreach (string file in files)
         {
-            Package package = new();
             FileInfo fileInfo = new(file);
-            package.package_ecosystem = Common.GetPackageEcoSystemFromFileName(fileInfo);
             string cleanedFile = file.Replace(startingDirectory + "/", "");
             cleanedFile = cleanedFile.Replace(startingDirectory + "\\", "");
             cleanedFile = cleanedFile.Replace(fileInfo.Name, "");
             cleanedFile = "/" + cleanedFile.Replace("\\", "/");
-            package.directory = cleanedFile;
-            package.schedule = new()
+            Package package = new()
             {
-                interval = interval
+                package_ecosystem = Common.GetPackageEcoSystemFromFileName(fileInfo),
+                directory = cleanedFile,
+                schedule = new()
+                {
+                    interval = interval,
+                    time = time,
+                    timezone = timezone
+                },
+                assignees = assignees
             };
-            if (time != null)
-            {
-                package.schedule.time = time;
-            }
-            if (timezone != null)
-            {
-                package.schedule.timezone = timezone;
-            }
-            //package.assignees = assignees;
             if (openPRLimit > 0)
             {
                 package.open_pull_requests_limit = openPRLimit.ToString();
             }
             packages.Add(package);
         }
-        //Add actions
-        if (includeActions == true)
-        {
-            Package actionsPackage = new();
-            actionsPackage.package_ecosystem = "github-actions";
-            actionsPackage.directory = "/";
-            actionsPackage.schedule = new()
-            {
-                interval = interval
-            };
-            if (time != null)
-            {
-                actionsPackage.schedule.time = time;
-            }
-            if (timezone != null)
-            {
-                actionsPackage.schedule.timezone = timezone;
-            }
-            //actionsPackage.assignees = assignees;
-            if (openPRLimit > 0)
-            {
-                actionsPackage.open_pull_requests_limit = openPRLimit.ToString();
-            }
-            packages.Add(actionsPackage);
-        }
+        ////Add actions
+        //if (includeActions == true)
+        //{
+        //    Package actionsPackage = new();
+        //    actionsPackage.package_ecosystem = "github-actions";
+        //    actionsPackage.directory = "/";
+        //    actionsPackage.schedule = new()
+        //    {
+        //        interval = interval
+        //    };
+        //    if (time != null)
+        //    {
+        //        actionsPackage.schedule.time = time;
+        //    }
+        //    if (timezone != null)
+        //    {
+        //        actionsPackage.schedule.timezone = timezone;
+        //    }
+        //    actionsPackage.assignees = assignees;
+        //    if (openPRLimit > 0)
+        //    {
+        //        actionsPackage.open_pull_requests_limit = openPRLimit.ToString();
+        //    }
+        //    packages.Add(actionsPackage);
+        //}
         root.updates = packages;
 
         //Serialize the object into YAML
-        ISerializer? serializer = new SerializerBuilder()
+        ISerializer serializer = new SerializerBuilder()
             .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitDefaults) //New as of YamlDotNet 8.0.0:
             .Build();
         string? yaml = serializer.Serialize(root);
