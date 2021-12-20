@@ -6,14 +6,26 @@ namespace DCB
     {
         public static void Main(string[] args)
         {
-
             //Parse arguments
             string workingDirectory = Environment.CurrentDirectory;
+            string[] assignees = null;
+            int openPRRequestsLimit = 0;
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
                 if (string.IsNullOrEmpty(o.Directory) == false)
                 {
                     workingDirectory = o.Directory;
+                }
+                if (string.IsNullOrEmpty(o.Assignees) == false)
+                {
+                    assignees = o.Assignees.Split(',');
+                }
+                if (string.IsNullOrEmpty(o.OpenPullRequestsLimit) == false)
+                {
+                    if (int.TryParse(o.OpenPullRequestsLimit, out openPRRequestsLimit))
+                    {
+                        //do nothing
+                    }
                 }
             });
 
@@ -22,14 +34,20 @@ namespace DCB
             Console.WriteLine(files.Count + " files found in " + workingDirectory);
 
             //Create the yaml
-            string yaml = YAMLParser.CreateDependabotConfiguration(workingDirectory, files);
+            string yaml = YAMLParser.CreateDependabotConfiguration(workingDirectory, files, "daily", null, null, assignees);
             Console.WriteLine(yaml);
         }
 
         public class Options
         {
-            [Option('d', "dir", Required = false, HelpText = "set working directory")]
+            [Option('d', "directory", Required = false, HelpText = "set working directory")]
             public string? Directory { get; set; }
+
+            [Option('a', "assignees", Required = false, HelpText = "set assignees, comma separated")]
+            public string? Assignees { get; set; }
+
+            [Option('p', "prlimit", Required = false, HelpText = "set max number of open pull requests")]
+            public string? OpenPullRequestsLimit { get; set; }
         }
     }
 }

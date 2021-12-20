@@ -4,16 +4,25 @@ Given a repository, scan all files for packages and generate the Dependabot conf
 [![.NET](https://github.com/samsmithnz/Dependabot-Configuration-Builder/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/Dependabot-Configuration-Builder/actions/workflows/dotnet.yml)
 
 Currently scans for
-- NuGet (nuget.config, csproj, and vbproj, defaulting to nuget)
-- pom.xml (Java), defaulting to maven
-- package.json (JavaScript), defaulting to npm
-- Gemfile (Ruby), defaulting to bundler 
-- requirements.txt (Python), defaulting to pip
-- GitHub actions
 
-See issues for details. Current implementation is an evenings work to support .NET/NuGet and Java/Pom/Maven, but this could potentially solve scale issues with Log4j/pom.xml.
+| File | System | Package |
+|--|--|--|
+| nuget.config, *.csproj, *.vbproj | .NET | NuGet |
+| pom.xml | Java | Maven |
+| package.json | JavaScript | NPM |
+| Gemfile, Gemfile.lock | Ruby | bundler |
+| requirements.txt | Python | pip |
+| *.yml | GitHub Actions | GitHub Actions |
 
-See the [official docs](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates) for more options
+See issues for details.
+
+See the [official Dependabot docs](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates) for more options
+
+## Usage
+
+```
+DCB [-d|--directory <directory to scan>] [-a|--assignees <comma delimited list of assignees>]
+```
 
 ## Example
 
