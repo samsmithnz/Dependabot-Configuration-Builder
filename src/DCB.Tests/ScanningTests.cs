@@ -69,7 +69,7 @@ updates:
         {
             projectDirectory = projectDirectory?.Replace("\\", "/");
         }
-        List<string> assignees = new() { "samsmithnz" };
+        List<string> assignees = null;// new() { "samsmithnz" };
         int openPRLimit = 10;
 
         //act
