@@ -20,14 +20,14 @@ See the [official Dependabot docs](https://docs.github.com/en/code-security/supp
 
 ## Usage
 
-```
+```C#
 DCB [-d|--directory <directory to scan>] [-a|--assignees <comma delimited list of assignees>]
 ```
 
 ## Example
 
 Given this projects root directory + samples, produces the output:
-```
+```YAML
 version: 2
 updates:
 - package-ecosystem: nuget
