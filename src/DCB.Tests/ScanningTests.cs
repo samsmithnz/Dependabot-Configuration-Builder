@@ -1,3 +1,5 @@
+using GitHubActionsDotNet.Helpers;
+using GitHubActionsDotNet.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -30,7 +32,7 @@ public class ScanningTests
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval, time, timezone, assignees, openPRLimit);
+        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval, time, timezone, assignees, openPRLimit);
 
         //assert
         string expected = @"version: 2
@@ -78,7 +80,7 @@ updates:
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, "daily", null, null, assignees, openPRLimit);
+        string yaml = DependabotSerialization.Serialize(projectDirectory, files, "daily", null, null, assignees, openPRLimit);
 
         //assert
         string expected = @"version: 2
@@ -164,7 +166,7 @@ updates:
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval);
+        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval);
 
         //assert
         string expected = @"version: 2
@@ -202,7 +204,7 @@ updates:
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval);
+        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval);
 
         //assert
         string expected = @"version: 2
@@ -240,7 +242,7 @@ updates:
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval);
+        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval);
 
         //assert
         string expected = @"version: 2
@@ -278,7 +280,7 @@ updates:
 
         //act
         List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = YAMLParser.CreateDependabotConfiguration(projectDirectory, files, interval);
+        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval);
 
         //assert
         string expected = @"version: 2
