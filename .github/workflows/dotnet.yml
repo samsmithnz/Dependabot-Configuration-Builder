@@ -62,7 +62,7 @@ jobs:
         -DestinationPath ${{ github.workspace }}\${{ matrix.ChannelName }}\DCB.${{ matrix.ChannelName }}.${{ needs.version.outputs.Version }}.zip
       shell: powershell
     - name: Publish Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.ChannelName }}
         path: ${{ github.workspace }}\${{ matrix.ChannelName }}
