@@ -5,33 +5,47 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 20
+  assignees:
+  - "samsmithnz"
 - package-ecosystem: maven
   directory: /samples/java/
   schedule:
     interval: daily
   open-pull-requests-limit: 20
+  assignees:
+  - "samsmithnz"
 - package-ecosystem: npm
   directory: /samples/javascript/
   schedule:
     interval: daily
   open-pull-requests-limit: 20
+  assignees:
+  - "samsmithnz"
 - package-ecosystem: bundler
   directory: /samples/ruby/
   schedule:
     interval: daily
   open-pull-requests-limit: 20
+  assignees:
+  - "samsmithnz"
 - package-ecosystem: nuget
   directory: /src/DCB.Tests/
   schedule:
     interval: daily
   open-pull-requests-limit: 20
+  assignees:
+  - "samsmithnz"
 - package-ecosystem: nuget
   directory: /src/DCB/
   schedule:
     interval: daily
   open-pull-requests-limit: 20
+  assignees:
+  - "samsmithnz"
 - package-ecosystem: github-actions
   directory: /
   schedule:
     interval: daily
   open-pull-requests-limit: 20
+  assignees:
+  - "samsmithnz"
