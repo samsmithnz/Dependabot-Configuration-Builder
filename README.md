@@ -2,6 +2,10 @@
 Given a repository, scan all files for packages and generate the Dependabot configuration file
 
 [![.NET](https://github.com/samsmithnz/Dependabot-Configuration-Builder/actions/workflows/dotnet.yml/badge.svg)](https://github.com/samsmithnz/Dependabot-Configuration-Builder/actions/workflows/dotnet.yml)
+[![Coverage Status](https://coveralls.io/repos/github/samsmithnz/Dependabot-Configuration-Builder/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/Dependabot-Configuration-Builder?branch=main)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=samsmithnz_Dependabot-Configuration-Builder&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=samsmithnz_Dependabot-Configuration-Builder)
+[![Current Release](https://img.shields.io/github/release/samsmithnz/Dependabot-Configuration-Builder/all.svg)](https://github.com/samsmithnz/Dependabot-Configuration-Builder/releases)
+
 
 Currently scans for
 
