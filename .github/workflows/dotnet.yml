@@ -51,6 +51,18 @@ jobs:
       uses: actions/setup-dotnet@v3.0.3
       with:
         dotnet-version: 6.0.x
+    - name: Test with dotnet
+      run: dotnet test --configuration ${{ env.BuildConfiguration }}
+    - name: Test projects
+      if: matrix.ChannelName == Linux_x64
+      run: |        
+        dotnet test src/DCB.Tests/DCB.Tests.csproj --configuration debug -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov
+    - name: Publish coverage report to coveralls.io
+      if: matrix.ChannelName == Linux_x64
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: src/DCB.Tests/TestResults/coverage.info 
     - name: Create directory for channel
       run: mkdir ${{ github.workspace }}\${{ matrix.ChannelName }}
       shell: powershell
