@@ -12,6 +12,9 @@ namespace DCB
             string workingDirectory = Environment.CurrentDirectory;
             List<string>? assignees = null;
             int openPRRequestsLimit = 0;
+            string? interval = null;
+            string? time = null;
+            string? timezone = null;
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
                 if (string.IsNullOrEmpty(o.Directory) == false)
@@ -29,27 +32,28 @@ namespace DCB
                         //do nothing
                     }
                 }
+                if (string.IsNullOrEmpty(o.Interval) == false)
+                {
+                    interval = o.Interval;
+                }
+                if (string.IsNullOrEmpty(o.Time) == false)
+                {
+                    time = o.Time;
+                }
+                if (string.IsNullOrEmpty(o.TimeZone) == false)
+                {
+                    timezone = o.TimeZone;
+                }
             });
 
             //Get a list of package files
             List<string> files = FileSearch.GetFilesForDirectory(workingDirectory);
-            Console.WriteLine(files.Count + " files found in " + workingDirectory);
+            //Console.WriteLine(files.Count + " files found in " + workingDirectory);
 
             //Create the yaml
-            string yaml = DependabotSerialization.Serialize(workingDirectory, files, "daily", null, null, assignees);
+            string yaml = DependabotSerialization.Serialize(workingDirectory, files, interval, time, timezone, assignees, openPRRequestsLimit);
             Console.WriteLine(yaml);
         }
 
-        public class Options
-        {
-            [Option('d', "directory", Required = false, HelpText = "set working directory")]
-            public string? Directory { get; set; }
-
-            [Option('a', "assignees", Required = false, HelpText = "set assignees, comma separated")]
-            public string? Assignees { get; set; }
-
-            [Option('p', "prlimit", Required = false, HelpText = "set max number of open pull requests")]
-            public string? OpenPullRequestsLimit { get; set; }
-        }
     }
 }
