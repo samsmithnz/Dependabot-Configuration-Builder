@@ -3,6 +3,7 @@ using GitHubActionsDotNet.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -25,14 +26,31 @@ public class ScanningTests
             projectDirectory = projectDirectory.Replace("\\", "/");
         }
         List<string> assignees = new() { "samsmithnz" };
+        string assigneeList = "";
+        for (int i = 0; i <= assignees.Count - 1; i++)
+        {
+            if (i + 1 == assignees.Count)
+            {
+                assigneeList += assignees[i].Trim();
+            }
+            else
+            {
+                assigneeList += assignees[i].Trim() + ",";
+            }
+        }
         int openPRLimit = 10;
         string interval = "daily";
         string time = "06:00";
         string timezone = "America/New_York";
 
         //act
-        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval, time, timezone, assignees, openPRLimit);
+        string actual = "";
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+            Program.Main(new string[] { "-d", projectDirectory, "-a", assigneeList, "-p", openPRLimit.ToString(), "-i", interval, "-t", time, "-z", timezone });
+            actual = sw.ToString();
+        }
 
         //assert
         string expected = @"version: 2
@@ -55,14 +73,15 @@ updates:
   assignees:
   - samsmithnz
   open-pull-requests-limit: 10
-";
+" + Environment.NewLine;
 
         //If it's a Linux runner, reverse the brackets
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             expected = expected.Replace("\\", "/");
+            actual = actual.Replace("\\", "/");
         }
-        Assert.AreEqual(expected, yaml);
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -76,11 +95,29 @@ updates:
             projectDirectory = projectDirectory?.Replace("\\", "/");
         }
         List<string> assignees = new() { "samsmithnz" };
+        string assigneeList = "";
+        for (int i = 0; i <= assignees.Count - 1; i++)
+        {
+            if (i + 1 == assignees.Count)
+            {
+                assigneeList += assignees[i].Trim();
+            }
+            else
+            {
+                assigneeList += assignees[i].Trim() + ",";
+            }
+        }
+        string interval = "daily";
         int openPRLimit = 10;
 
         //act
-        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = DependabotSerialization.Serialize(projectDirectory, files, "daily", null, null, assignees, openPRLimit);
+        string actual = "";
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+            Program.Main(new string[] { "-d", projectDirectory, "-a", assigneeList, "-p", openPRLimit.ToString(), "-i", interval });
+            actual = sw.ToString();
+        }
 
         //assert
         string expected = @"version: 2
@@ -141,14 +178,15 @@ updates:
   assignees:
   - samsmithnz
   open-pull-requests-limit: 10
-";
+" + Environment.NewLine;
 
         //If it's a Linux runner, reverse the brackets
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             expected = expected.Replace("\\", "/");
+            actual = actual.Replace("\\", "/");
         }
-        Assert.AreEqual(expected, yaml);
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -165,8 +203,13 @@ updates:
         string interval = "daily";
 
         //act
-        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval);
+        string actual = "";
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+            Program.Main(new string[] { "-d", projectDirectory, "-i", interval });
+            actual = sw.ToString();
+        }
 
         //assert
         string expected = @"version: 2
@@ -179,14 +222,15 @@ updates:
   directory: /
   schedule:
     interval: daily
-";
+" + Environment.NewLine;
 
         //If it's a Linux runner, reverse the brackets
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             expected = expected.Replace("\\", "/");
+            actual = actual.Replace("\\", "/");
         }
-        Assert.AreEqual(expected, yaml);
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -203,8 +247,13 @@ updates:
         string interval = "daily";
 
         //act
-        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval);
+        string actual = "";
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+            Program.Main(new string[] { "-d", projectDirectory, "-i", interval });
+            actual = sw.ToString();
+        }
 
         //assert
         string expected = @"version: 2
@@ -217,14 +266,15 @@ updates:
   directory: /
   schedule:
     interval: daily
-";
+" + Environment.NewLine;
 
         //If it's a Linux runner, reverse the brackets
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             expected = expected.Replace("\\", "/");
+            actual = actual.Replace("\\", "/");
         }
-        Assert.AreEqual(expected, yaml);
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -241,8 +291,13 @@ updates:
         string interval = "daily";
 
         //act
-        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval);
+        string actual = "";
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+            Program.Main(new string[] { "-d", projectDirectory, "-i", interval });
+            actual = sw.ToString();
+        }
 
         //assert
         string expected = @"version: 2
@@ -255,14 +310,15 @@ updates:
   directory: /
   schedule:
     interval: daily
-";
+" + Environment.NewLine;
 
         //If it's a Linux runner, reverse the brackets
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             expected = expected.Replace("\\", "/");
+            actual = actual.Replace("\\", "/");
         }
-        Assert.AreEqual(expected, yaml);
+        Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -279,8 +335,13 @@ updates:
         string interval = "daily";
 
         //act
-        List<string> files = FileSearch.GetFilesForDirectory(projectDirectory);
-        string yaml = DependabotSerialization.Serialize(projectDirectory, files, interval);
+        string actual = "";
+        using (StringWriter sw = new StringWriter())
+        {
+            Console.SetOut(sw);
+            Program.Main(new string[] { "-d", projectDirectory, "-i", interval });
+            actual = sw.ToString();
+        }
 
         //assert
         string expected = @"version: 2
@@ -293,14 +354,15 @@ updates:
   directory: /
   schedule:
     interval: daily
-";
+" + Environment.NewLine;
 
         //If it's a Linux runner, reverse the brackets
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             expected = expected.Replace("\\", "/");
+            actual = actual.Replace("\\", "/");
         }
-        Assert.AreEqual(expected, yaml);
+        Assert.AreEqual(expected, actual);
     }
 
 }
