@@ -1,9 +1,6 @@
-using GitHubActionsDotNet.Helpers;
-using GitHubActionsDotNet.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.IO;
 using System.Runtime.InteropServices;
 
