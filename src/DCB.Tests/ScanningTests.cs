@@ -42,7 +42,7 @@ public class ScanningTests
 
         //act
         string actual = "";
-        using (StringWriter sw = new StringWriter())
+        using (StringWriter sw = new())
         {
             Console.SetOut(sw);
             Program.Main(new string[] { "-d", projectDirectory, "-a", assigneeList, "-p", openPRLimit.ToString(), "-i", interval, "-t", time, "-z", timezone });
@@ -109,7 +109,7 @@ updates:
 
         //act
         string actual = "";
-        using (StringWriter sw = new StringWriter())
+        using (StringWriter sw = new())
         {
             Console.SetOut(sw);
             Program.Main(new string[] { "-d", projectDirectory, "-a", assigneeList, "-p", openPRLimit.ToString(), "-i", interval });
@@ -201,7 +201,7 @@ updates:
 
         //act
         string actual = "";
-        using (StringWriter sw = new StringWriter())
+        using (StringWriter sw = new())
         {
             Console.SetOut(sw);
             Program.Main(new string[] { "-d", projectDirectory, "-i", interval });
@@ -245,7 +245,7 @@ updates:
 
         //act
         string actual = "";
-        using (StringWriter sw = new StringWriter())
+        using (StringWriter sw = new())
         {
             Console.SetOut(sw);
             Program.Main(new string[] { "-d", projectDirectory, "-i", interval });
@@ -289,7 +289,7 @@ updates:
 
         //act
         string actual = "";
-        using (StringWriter sw = new StringWriter())
+        using (StringWriter sw = new())
         {
             Console.SetOut(sw);
             Program.Main(new string[] { "-d", projectDirectory, "-i", interval });
@@ -333,7 +333,7 @@ updates:
 
         //act
         string actual = "";
-        using (StringWriter sw = new StringWriter())
+        using (StringWriter sw = new())
         {
             Console.SetOut(sw);
             Program.Main(new string[] { "-d", projectDirectory, "-i", interval });
