@@ -17,30 +17,30 @@ namespace DCB
             string? timezone = null;
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
-                if (string.IsNullOrEmpty(o.Directory) == false)
+                if (!string.IsNullOrEmpty(o.Directory))
                 {
                     workingDirectory = o.Directory;
                 }
-                if (string.IsNullOrEmpty(o.Assignees) == false)
+                if (!string.IsNullOrEmpty(o.Assignees))
                 {
                     assignees = o.Assignees.Split(',').ToList<string>();
                 }
-                if (string.IsNullOrEmpty(o.OpenPullRequestsLimit) == false)
+                if (!string.IsNullOrEmpty(o.OpenPullRequestsLimit))
                 {
                     if (int.TryParse(o.OpenPullRequestsLimit, out openPRRequestsLimit))
                     {
                         //do nothing
                     }
                 }
-                if (string.IsNullOrEmpty(o.Interval) == false)
+                if (!string.IsNullOrEmpty(o.Interval))
                 {
                     interval = o.Interval;
                 }
-                if (string.IsNullOrEmpty(o.Time) == false)
+                if (!string.IsNullOrEmpty(o.Time))
                 {
                     time = o.Time;
                 }
-                if (string.IsNullOrEmpty(o.TimeZone) == false)
+                if (!string.IsNullOrEmpty(o.TimeZone))
                 {
                     timezone = o.TimeZone;
                 }
