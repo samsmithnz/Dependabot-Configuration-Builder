@@ -112,7 +112,10 @@ updates:
         using (StringWriter sw = new())
         {
             Console.SetOut(sw);
-            Program.Main(new string[] { "-d", projectDirectory, "-a", assigneeList, "-p", openPRLimit.ToString(), "-i", interval });
+            if (projectDirectory != null)
+            {
+                Program.Main(new string[] { "-d", projectDirectory, "-a", assigneeList, "-p", openPRLimit.ToString(), "-i", interval });
+            }
             actual = sw.ToString();
         }
 
