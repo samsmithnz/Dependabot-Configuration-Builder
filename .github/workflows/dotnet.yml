@@ -112,6 +112,6 @@ jobs:
       if: needs.version.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
       with:
         artifacts: Linux_x64/DCB.Linux_x64.${{ needs.version.outputs.Version }}.zip,MacOS_x64/DCB.MacOS_x64.${{ needs.version.outputs.Version }}.zip,Windows_x64/DCB.Windows_x64.${{ needs.version.outputs.Version }}.zip
-        tag: ${{ needs.version.outputs.Version }}
-        name: Release ${{ needs.version.outputs.Version }}
+        tag: "v${{ needs.version.outputs.Version }}"
+        name: "v${{ needs.version.outputs.Version }}"
         token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
