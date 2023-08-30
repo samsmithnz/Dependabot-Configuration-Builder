@@ -32,20 +32,32 @@ updates:
   directory: /src/DCB.Tests/
   schedule:
     interval: daily
-  open-pull-requests-limit: 20
+  open-pull-requests-limit: 10
   assignees:
   - "samsmithnz"
+  groups:
+    tests:
+      patterns: ["*"]
+      update-types: ["minor", "patch"]
 - package-ecosystem: nuget
   directory: /src/DCB/
   schedule:
     interval: daily
-  open-pull-requests-limit: 20
+  open-pull-requests-limit: 10
   assignees:
   - "samsmithnz"
+  groups:
+    core:
+      patterns: ["*"]
+      update-types: ["minor", "patch"]
 - package-ecosystem: github-actions
   directory: /
   schedule:
     interval: daily
-  open-pull-requests-limit: 20
+  open-pull-requests-limit: 10
   assignees:
   - "samsmithnz"
+  groups:
+    actions:
+      patterns: ["*"]
+      update-types: ["minor", "patch"]
