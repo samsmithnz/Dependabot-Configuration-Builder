@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="GitHubActionsDotNet" Version="1.2.2" />
+    <PackageReference Include="GitHubActionsDotNet" Version="1.2.3" />
     <PackageReference Include="YamlDotNet" Version="13.3.1" />
   </ItemGroup>
 
