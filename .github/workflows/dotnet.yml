@@ -19,11 +19,11 @@ jobs:
       with:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v3.1.11
+      uses: gittools/actions/gitversion/setup@v3.2.0
       with:
         versionSpec: 5.x
     - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v3.1.11
+      uses: gittools/actions/gitversion/execute@v3.2.0
       id: gitversion # step id used as reference for output values
     - name: Display GitVersion outputs
       run: |
@@ -48,7 +48,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4.3.0
+      uses: actions/setup-dotnet@v4.3.1
       with:
         dotnet-version: 8.0.x
     - name: Test projects
