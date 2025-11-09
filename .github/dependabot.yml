@@ -60,4 +60,3 @@ updates:
   groups:
     actions:
       patterns: ["*"]
-      update-types: ["minor", "patch"]
