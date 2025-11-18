@@ -57,7 +57,7 @@ jobs:
         dotnet test src/DCB.Tests/DCB.Tests.csproj --configuration debug -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov
     - name: Publish coverage report to coveralls.io
       if: matrix.ChannelName == 'Linux_x64'
-      uses: coverallsapp/github-action@v2.3.6
+      uses: coverallsapp/github-action@v2.3.7
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/DCB.Tests/TestResults/coverage.info 
