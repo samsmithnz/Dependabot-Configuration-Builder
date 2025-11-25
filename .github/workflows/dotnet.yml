@@ -15,7 +15,7 @@ jobs:
       Version: ${{ steps.gitversion.outputs.MajorMinorPatch }} 
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
     - name: Install GitVersion
@@ -46,9 +46,9 @@ jobs:
     env:
       BuildConfiguration: Release
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5.0.0
+      uses: actions/setup-dotnet@v5.0.1
       with:
         dotnet-version: 8.0.x
     - name: Test projects
@@ -57,7 +57,7 @@ jobs:
         dotnet test src/DCB.Tests/DCB.Tests.csproj --configuration debug -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov
     - name: Publish coverage report to coveralls.io
       if: matrix.ChannelName == 'Linux_x64'
-      uses: coverallsapp/github-action@v2.3.6
+      uses: coverallsapp/github-action@v2.3.7
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: src/DCB.Tests/TestResults/coverage.info 
