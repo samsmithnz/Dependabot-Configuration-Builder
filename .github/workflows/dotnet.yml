@@ -15,7 +15,7 @@ jobs:
       Version: ${{ steps.gitversion.outputs.MajorMinorPatch }} 
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
     - name: Install GitVersion
@@ -46,9 +46,9 @@ jobs:
     env:
       BuildConfiguration: Release
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5.0.0
+      uses: actions/setup-dotnet@v5.0.1
       with:
         dotnet-version: 8.0.x
     - name: Test projects
