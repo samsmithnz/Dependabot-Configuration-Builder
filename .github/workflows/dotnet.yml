@@ -15,7 +15,7 @@ jobs:
       Version: ${{ steps.gitversion.outputs.MajorMinorPatch }} 
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
     - name: Install GitVersion
@@ -46,9 +46,9 @@ jobs:
     env:
       BuildConfiguration: Release
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5.0.0
+      uses: actions/setup-dotnet@v5.0.1
       with:
         dotnet-version: 8.0.x
     - name: Test projects
@@ -72,7 +72,7 @@ jobs:
         -DestinationPath ${{ github.workspace }}\${{ matrix.ChannelName }}\DCB.${{ matrix.ChannelName }}.${{ needs.version.outputs.Version }}.zip
       shell: powershell
     - name: Publish Artifacts
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: ${{ matrix.ChannelName }}
         path: ${{ github.workspace }}\${{ matrix.ChannelName }}
@@ -106,7 +106,7 @@ jobs:
         echo "Version: ${{ needs.version.outputs.Version }}" 
         echo "CommitsSinceVersionSource: ${{ needs.version.outputs.CommitsSinceVersionSource }}" 
     - name: Download package artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
     - name: Create Release
       uses: ncipollo/release-action@v1
       if: needs.version.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
