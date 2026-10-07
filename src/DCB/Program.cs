@@ -72,17 +72,17 @@ namespace DCB
                 !string.IsNullOrWhiteSpace(cooldownInclude) ||
                 !string.IsNullOrWhiteSpace(cooldownExclude))
             {
-                var yamlStream = new YamlStream();
+                YamlStream yamlStream = new();
                 yamlStream.Load(new StringReader(yaml));
-                var root = (YamlMappingNode)yamlStream.Documents[0].RootNode;
-                var updates = (YamlSequenceNode)root.Children[new YamlScalarNode("updates")];
+                YamlMappingNode root = (YamlMappingNode)yamlStream.Documents[0].RootNode;
+                YamlSequenceNode updates = (YamlSequenceNode)root.Children[new YamlScalarNode("updates")];
 
                 foreach (YamlMappingNode update in updates.Children)
                 {
-                    var cooldown = new YamlMappingNode();
+                    YamlMappingNode cooldown = new();
                     AddCooldownValue(cooldown, "default-days", cooldownDefaultDays);
 
-                    var ecosystem = (YamlScalarNode)update.Children[new YamlScalarNode("package-ecosystem")];
+                    YamlScalarNode ecosystem = (YamlScalarNode)update.Children[new YamlScalarNode("package-ecosystem")];
                     if (ecosystem.Value != "github-actions")
                     {
                         AddCooldownValue(cooldown, "semver-major-days", cooldownSemverMajorDays);
@@ -99,7 +99,7 @@ namespace DCB
                     }
                 }
 
-                using var writer = new StringWriter();
+                using StringWriter writer = new();
                 yamlStream.Save(writer, assignAnchors: false);
                 yaml = writer.ToString();
             }
@@ -118,8 +118,8 @@ namespace DCB
         {
             if (!string.IsNullOrWhiteSpace(dependencies))
             {
-                var values = dependencies.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                var sequence = new YamlSequenceNode();
+                string[] values = dependencies.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                YamlSequenceNode sequence = new();
                 foreach (string value in values)
                 {
                     sequence.Add(new YamlScalarNode(value));
