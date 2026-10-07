@@ -50,7 +50,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v5.0.0
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 10.0.x
     - name: Test projects
       if: matrix.ChannelName == 'Linux_x64'
       run: |        
@@ -87,7 +87,7 @@ jobs:
         uses: samsmithnz/SamsDotNetSonarCloudAction@v2
         with:
           projects: 'src/DCB/DCB.csproj,src/DCB.Tests/DCB.Tests.csproj  '
-          dotnet-version: '8.0.x'
+          dotnet-version: '10.0.x'
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_Dependabot-Configuration-Builder
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
