@@ -22,5 +22,23 @@ namespace DCB
         [Option('z', "timezone", Required = false, HelpText = "Timezone to use, e.g. America/New_York")]
         public string? TimeZone { get; set; }
 
+        [Option('c', "cooldown-default-days", Required = false, HelpText = "Default number of days to wait before creating update pull requests")]
+        public int? CooldownDefaultDays { get; set; }
+
+        [Option("cooldown-semver-major-days", Required = false, HelpText = "Number of days to wait before creating major update pull requests")]
+        public int? CooldownSemverMajorDays { get; set; }
+
+        [Option("cooldown-semver-minor-days", Required = false, HelpText = "Number of days to wait before creating minor update pull requests")]
+        public int? CooldownSemverMinorDays { get; set; }
+
+        [Option("cooldown-semver-patch-days", Required = false, HelpText = "Number of days to wait before creating patch update pull requests")]
+        public int? CooldownSemverPatchDays { get; set; }
+
+        [Option("cooldown-include", Required = false, HelpText = "Comma-separated dependency names to apply cooldown to")]
+        public string? CooldownInclude { get; set; }
+
+        [Option("cooldown-exclude", Required = false, HelpText = "Comma-separated dependency names to exclude from cooldown")]
+        public string? CooldownExclude { get; set; }
+
     }
 }

@@ -28,6 +28,8 @@ See the [official Dependabot docs](https://docs.github.com/en/code-security/supp
 DCB [-d|--directory <directory to scan>] [-a|--assignees <comma delimited list of assignees>]
 ```
 
+Cooldown settings can also be provided with `-c|--cooldown-default-days`, `--cooldown-semver-major-days`, `--cooldown-semver-minor-days`, and `--cooldown-semver-patch-days`. Use `--cooldown-include` and `--cooldown-exclude` with comma-separated dependency names to filter the cooldown.
+
 ## Example
 
 Given this projects root directory + samples, produces the output:
