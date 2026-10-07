@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using GitHubActionsDotNet.Helpers;
 using GitHubActionsDotNet.Serialization;
+using YamlDotNet.RepresentationModel;
 
 namespace DCB
 {
@@ -15,6 +16,12 @@ namespace DCB
             string? interval = null;
             string? time = null;
             string? timezone = null;
+            int? cooldownDefaultDays = null;
+            int? cooldownSemverMajorDays = null;
+            int? cooldownSemverMinorDays = null;
+            int? cooldownSemverPatchDays = null;
+            string? cooldownInclude = null;
+            string? cooldownExclude = null;
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
                 if (!string.IsNullOrEmpty(o.Directory))
@@ -44,6 +51,12 @@ namespace DCB
                 {
                     timezone = o.TimeZone;
                 }
+                cooldownDefaultDays = o.CooldownDefaultDays;
+                cooldownSemverMajorDays = o.CooldownSemverMajorDays;
+                cooldownSemverMinorDays = o.CooldownSemverMinorDays;
+                cooldownSemverPatchDays = o.CooldownSemverPatchDays;
+                cooldownInclude = o.CooldownInclude;
+                cooldownExclude = o.CooldownExclude;
             });
 
             //Get a list of package files
@@ -52,7 +65,70 @@ namespace DCB
 
             //Create the yaml
             string yaml = DependabotSerialization.Serialize(workingDirectory, files, interval, time, timezone, assignees, openPRRequestsLimit);
+            if (cooldownDefaultDays.HasValue ||
+                cooldownSemverMajorDays.HasValue ||
+                cooldownSemverMinorDays.HasValue ||
+                cooldownSemverPatchDays.HasValue ||
+                !string.IsNullOrWhiteSpace(cooldownInclude) ||
+                !string.IsNullOrWhiteSpace(cooldownExclude))
+            {
+                var yamlStream = new YamlStream();
+                yamlStream.Load(new StringReader(yaml));
+                var root = (YamlMappingNode)yamlStream.Documents[0].RootNode;
+                var updates = (YamlSequenceNode)root.Children[new YamlScalarNode("updates")];
+
+                foreach (YamlMappingNode update in updates.Children)
+                {
+                    var cooldown = new YamlMappingNode();
+                    AddCooldownValue(cooldown, "default-days", cooldownDefaultDays);
+
+                    var ecosystem = (YamlScalarNode)update.Children[new YamlScalarNode("package-ecosystem")];
+                    if (ecosystem.Value != "github-actions")
+                    {
+                        AddCooldownValue(cooldown, "semver-major-days", cooldownSemverMajorDays);
+                        AddCooldownValue(cooldown, "semver-minor-days", cooldownSemverMinorDays);
+                        AddCooldownValue(cooldown, "semver-patch-days", cooldownSemverPatchDays);
+                    }
+
+                    AddCooldownDependencies(cooldown, "include", cooldownInclude);
+                    AddCooldownDependencies(cooldown, "exclude", cooldownExclude);
+
+                    if (cooldown.Children.Count > 0)
+                    {
+                        update.Add(new YamlScalarNode("cooldown"), cooldown);
+                    }
+                }
+
+                using var writer = new StringWriter();
+                yamlStream.Save(writer, assignAnchors: false);
+                yaml = writer.ToString();
+            }
             Console.WriteLine(yaml);
+        }
+
+        private static void AddCooldownValue(YamlMappingNode cooldown, string name, int? value)
+        {
+            if (value.HasValue)
+            {
+                cooldown.Add(new YamlScalarNode(name), new YamlScalarNode(value.Value.ToString()));
+            }
+        }
+
+        private static void AddCooldownDependencies(YamlMappingNode cooldown, string name, string? dependencies)
+        {
+            if (!string.IsNullOrWhiteSpace(dependencies))
+            {
+                var values = dependencies.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                var sequence = new YamlSequenceNode();
+                foreach (string value in values)
+                {
+                    sequence.Add(new YamlScalarNode(value));
+                }
+                if (sequence.Children.Count > 0)
+                {
+                    cooldown.Add(new YamlScalarNode(name), sequence);
+                }
+            }
         }
 
     }
