@@ -50,7 +50,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v5.0.1
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 10.0.x
     - name: Test projects
       if: matrix.ChannelName == 'Linux_x64'
       run: |        
@@ -78,19 +78,19 @@ jobs:
         path: ${{ github.workspace }}\${{ matrix.ChannelName }}
 
 
-  sonarCloud:
-    name: Run SonarCloud analysis
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' 
-    steps:
-      - name: Run Sonarcloud test
-        uses: samsmithnz/SamsDotNetSonarCloudAction@v2
-        with:
-          projects: 'src/DCB/DCB.csproj,src/DCB.Tests/DCB.Tests.csproj  '
-          dotnet-version: '8.0.x'
-          sonarcloud-organization: samsmithnz-github
-          sonarcloud-project: samsmithnz_Dependabot-Configuration-Builder
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  # sonarCloud:
+  #   name: Run SonarCloud analysis
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main' 
+  #   steps:
+  #     - name: Run Sonarcloud test
+  #       uses: samsmithnz/SamsDotNetSonarCloudAction@v2
+  #       with:
+  #         projects: 'src/DCB/DCB.csproj,src/DCB.Tests/DCB.Tests.csproj  '
+  #         dotnet-version: '10.0.x'
+  #         sonarcloud-organization: samsmithnz-github
+  #         sonarcloud-project: samsmithnz_Dependabot-Configuration-Builder
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
         
   Release:
@@ -98,7 +98,7 @@ jobs:
     needs: 
     - version
     - build
-    - sonarCloud
+    #- sonarCloud
     if: github.ref == 'refs/heads/main'      
     steps:
     - name: Display GitVersion outputs
