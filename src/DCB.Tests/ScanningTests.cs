@@ -365,4 +365,43 @@ updates:
         Assert.AreEqual(expected, actual);
     }
 
+    [TestMethod]
+    public void CooldownOptionsAreIncludedInEachUpdate()
+    {
+        string workingDirectory = Environment.CurrentDirectory;
+        string? projectDirectory = Directory.GetParent(workingDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
+        projectDirectory += "\\samples\\dotnet";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            projectDirectory = projectDirectory.Replace("\\", "/");
+        }
+
+        string actual = "";
+        using (StringWriter sw = new())
+        {
+            Console.SetOut(sw);
+            Program.Main(new[]
+            {
+                "-d", projectDirectory,
+                "-c", "5",
+                "--cooldown-semver-major-days", "30",
+                "--cooldown-semver-minor-days", "7",
+                "--cooldown-semver-patch-days", "3",
+                "--cooldown-include", "react*, vue",
+                "--cooldown-exclude", "critical-package"
+            });
+            actual = sw.ToString();
+        }
+
+        Assert.AreEqual(2, actual.Split("cooldown:").Length - 1);
+        Assert.AreEqual(1, actual.Split("semver-major-days:").Length - 1);
+        StringAssert.Contains(actual, "default-days: 5");
+        StringAssert.Contains(actual, "semver-major-days: 30");
+        StringAssert.Contains(actual, "semver-minor-days: 7");
+        StringAssert.Contains(actual, "semver-patch-days: 3");
+        StringAssert.Contains(actual, "- react*");
+        StringAssert.Contains(actual, "- vue");
+        StringAssert.Contains(actual, "- critical-package");
+    }
+
 }
